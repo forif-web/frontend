@@ -1,12 +1,14 @@
+import getToken from "@/hooks/api/getToken";
 import getYearAndSemester from "@/hooks/getYearAndSemester";
 import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest, res: NextResponse) {
   const { year, semester } = getYearAndSemester();
   const URL = `${process.env.API_BASEURL}:${process.env.API_BASEPORT}`;
+  const idToken = await getToken({ req });
   const response: Response = await fetch(
-    `${URL}/studies/all?year=${year}&semester=${semester}`,
+    `${URL}/studies/apply?year=${year}&semester=${semester}`,
     {
-      method: "GET",
+      method: "POST",
       cache: "no-cache",
     }
   );

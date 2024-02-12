@@ -14,7 +14,12 @@ function Page({ params }: { params: { sid: string } }) {
     `/api/study/${params.sid}`,
     fetcher
   );
-  if (isLoading) return <SpinningCircle message="스터디 정보 불러오는 중..." />;
+  if (isLoading)
+    return (
+      <div className="flex flex-col gap-5 items-centere justify-center w-full h-screen">
+        <SpinningCircle message="스터디 불러오는 중..." />
+      </div>
+    );
   if (error)
     return (
       <div className="flex flex-col gap-5 items-centere justify-center w-full h-full">

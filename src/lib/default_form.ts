@@ -12,13 +12,21 @@ const formSchema = z.object({
 });
 
 const applySchema = z.object({
-  studyName: z.string(),
-  intro: z
+  primary_study: z
     .string()
-    .min(100, { message: "100자 이상 작성해주세요." })
+    .min(1, { message: "1순위 스터디는 반드시 작성해야 합니다." }),
+  secondary_study: z
+    .string()
+    .min(1, { message: "미참여시 '미참여'를 선택해주세요." }),
+  primary_intro: z
+    .string()
+    .min(50, { message: "50자 이상 작성해주세요." })
     .max(500, { message: "500자 이내로 작성해주세요." }),
-  career: z.string().max(50, { message: "50자 이하로 작성해주세요." }),
-  portfolio: z.string().optional(),
+  secondary_intro: z.string().optional(),
+  career: z
+    .string()
+    .min(1, { message: "개발 경험은 반드시 작성해야 합니다." })
+    .max(50, { message: "50자 이하로 작성해주세요." }),
 });
 
 const HYU_DEPARTMENTS: {

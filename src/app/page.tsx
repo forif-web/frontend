@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import handleObserver from "@/hooks/intersectionObserver";
 import { galleryImages, milestone } from "@/mockup/mockup";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import CountUp from "react-countup";
 import { TypeAnimation } from "react-type-animation";
@@ -72,9 +73,8 @@ export default function HomePage() {
                 F O R I F
               </h1>
             </div>
-            <Button variant={"sensuous"} size={"lg"} onClick={() => {}}>
-              APPLY NOW
-              {/* <Link href={"/studies"}>APPLY NOW</Link> */}
+            <Button variant={"sensuous"} size={"lg"}>
+              <Link href={"/apply"}>APPLY NOW</Link>
             </Button>
           </div>
         </section>

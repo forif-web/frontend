@@ -4,20 +4,21 @@ export interface CheckBoxProps {
   label: string;
   checked: boolean;
   onChange: any;
+  id: string;
 }
 
 const CheckBox = React.forwardRef<HTMLInputElement, CheckBoxProps>(
-  ({ label, onChange, checked }, ref) => {
+  ({ label, onChange, checked, id }, ref) => {
     return (
       <div className="flex flex-row gap-2 items-center">
         <label
           className="relative flex items-center rounded-sm cursor-pointer"
-          htmlFor="checkbox"
+          htmlFor={id}
         >
           <input
             type="checkbox"
             className="before:content[''] peer relative w-4 h-4 cursor-pointer appearance-none rounded-sm border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-gray-900 checked:bg-gray-900 checked:before:bg-gray-900 hover:before:opacity-10"
-            id="checkbox"
+            id={id}
             checked={checked}
             onChange={({ target: { checked } }) => onChange(checked)}
           />
@@ -38,7 +39,7 @@ const CheckBox = React.forwardRef<HTMLInputElement, CheckBoxProps>(
             </svg>
           </span>
         </label>
-        <label htmlFor="checkbox" className="selcet-none cursor-pointer">
+        <label htmlFor={id} className="selcet-none cursor-pointer">
           {label}
         </label>
       </div>

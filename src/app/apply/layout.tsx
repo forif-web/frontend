@@ -8,6 +8,7 @@ function ApplyPageLayout({ children }: { children: React.ReactNode }) {
       <h1 className="text-3xl flex justify-center font-bold">
         스터디 신청하기
       </h1>
+      <div className="h-8" />
       <div className="flex flex-col items-center">{children}</div>
     </div>
   );

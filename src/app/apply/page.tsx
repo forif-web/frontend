@@ -54,9 +54,6 @@ export default function Apply() {
   const [secondaryStudySelected, setSecondaryStudySelected] = useState("");
 
   function onSubmit(formResponse: z.infer<typeof applySchema>) {
-    // const formFetcher = (url: string) => axios.post(url, {
-    //   body: JSON.stringify(form)
-    // }).then((res) => res.data);
     console.log(formResponse);
   }
 

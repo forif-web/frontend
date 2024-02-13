@@ -96,6 +96,52 @@ export default function Apply() {
       </div>
     );
 
+  const StudySelector = ({
+    selectType,
+  }: {
+    selectType: "primary" | "secondary";
+  }) => {
+    const sortedStudyTypes = Object.keys(data).sort((a, b) => {
+      if (a === "정규") return -1;
+      if (b === "정규") return 1;
+      return 0;
+    });
+
+    return (
+      <SelectContent>
+        {selectType === "secondary" && (
+          <SelectGroup>
+            <SelectLabel>미참여시 아래 옵션을 선택해주세요</SelectLabel>
+            <SelectItem value="미참여">미참여</SelectItem>
+          </SelectGroup>
+        )}
+        {sortedStudyTypes.map((studyType) => (
+          <SelectGroup key={studyType}>
+            <SelectLabel>{studyType}</SelectLabel>
+
+            {(data[studyType] as string[]).map((study) => {
+              if (
+                primaryStudySelected === study ||
+                secondaryStudySelected === study
+              ) {
+                return (
+                  <SelectItem key={study} value={study} disabled>
+                    {study}
+                  </SelectItem>
+                );
+              }
+              return (
+                <SelectItem key={study} value={study}>
+                  {study}
+                </SelectItem>
+              );
+            })}
+          </SelectGroup>
+        ))}
+      </SelectContent>
+    );
+  };
+
   return (
     <>
       <Form {...form}>
@@ -120,18 +166,7 @@ export default function Apply() {
                       <SelectValue placeholder="스터디를 선택해주세요." />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
-                    {Object.keys(data).map((studyType) => (
-                      <SelectGroup key={studyType}>
-                        <SelectLabel>{studyType}</SelectLabel>
-                        {(data[studyType] as string[]).map((study) => (
-                          <SelectItem key={study} value={study}>
-                            {study}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    ))}
-                  </SelectContent>
+                  <StudySelector selectType="primary" />
                 </Select>
                 <FormMessage />
               </FormItem>
@@ -175,33 +210,7 @@ export default function Apply() {
                       <SelectValue placeholder="스터디를 선택해주세요." />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>
-                        미참여시 아래 옵션을 선택해주세요
-                      </SelectLabel>
-                      <SelectItem value="미참여">미참여</SelectItem>
-                    </SelectGroup>
-                    {Object.keys(data).map((studyType) => (
-                      <SelectGroup key={studyType}>
-                        <SelectLabel>{studyType}</SelectLabel>
-                        {(data[studyType] as string[]).map((study) => {
-                          if (primaryStudySelected === study) {
-                            return (
-                              <SelectItem key={study} value={study} disabled>
-                                {study}
-                              </SelectItem>
-                            );
-                          }
-                          return (
-                            <SelectItem key={study} value={study}>
-                              {study}
-                            </SelectItem>
-                          );
-                        })}
-                      </SelectGroup>
-                    ))}
-                  </SelectContent>
+                  <StudySelector selectType="secondary" />
                 </Select>
                 <FormMessage />
               </FormItem>

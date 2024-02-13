@@ -1,6 +1,5 @@
 "use client";
 import SpinningCircle from "@/components/common/skeleton/spinning-circle";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import StudyCardContainer from "@/containers/studies/study-card-container";
 import useStudySearch from "@/hooks/search-study";
@@ -81,7 +80,6 @@ const StudiesPage = () => {
           )}
         </div>
       </div>
-      <Button className="fixed bottom-5 right-5">지원하기!</Button>
     </div>
   );
 };

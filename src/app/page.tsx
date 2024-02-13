@@ -74,7 +74,7 @@ export default function HomePage() {
               </h1>
             </div>
             <Button variant={"sensuous"} size={"lg"}>
-              <Link href={"/apply"}>APPLY NOW</Link>
+              <Link href={"/studies"}>APPLY NOW</Link>
             </Button>
           </div>
         </section>

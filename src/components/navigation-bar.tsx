@@ -38,6 +38,7 @@ export function NavigationBar() {
       </Link>
       {session && pathname !== "/auth/signup" ? (
         <nav className="flex items-center space-x-6 max-md:hidden">
+          {pathname !== "/apply" && <NavTab href="/apply">지원하기!</NavTab>}
           <NavTab href="/studies">스터디 목록</NavTab>
           <NavTab href="/profile">프로필</NavTab>
         </nav>

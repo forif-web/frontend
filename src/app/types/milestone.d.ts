@@ -1,5 +1,7 @@
 type MilestoneEvent = {
+  id: number;
   event: string;
+  imgUrl: string;
 };
 
 type MilestoneEvents = {
@@ -16,4 +18,4 @@ type MilestoneType = {
   data: MilestoneData[];
 };
 
-export type { MilestoneType };
+export type { MilestoneEvent, MilestoneType };

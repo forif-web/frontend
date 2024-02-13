@@ -82,3 +82,47 @@
 .milestone .lastItem::before {
   display: none;
 }
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.image_modal {
+  max-width: 80vw;
+  max-height: 80vh;
+  width: 100%;
+  height: 100%;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.image_modal img {
+  width: 100%;
+  height: 85% !important;
+  object-fit: cover;
+}
+
+.image_modal > figcaption > h1 {
+  font-size: 36px;
+  line-height: 40px;
+  font-weight: bold;
+}
+
+.image_modal > figcaption > p {
+  font-size: 16px;
+}

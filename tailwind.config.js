@@ -23,11 +23,8 @@ module.exports = {
       },
     },
     extend: {
-      transitionProperty: {
-        graph: "width opacity",
-      },
       transitionDuration: {
-        graph: "1000ms",
+        line: "3000ms",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -83,7 +80,6 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "slow-spin": "spin 8s linear infinite",
       },
     },
   },

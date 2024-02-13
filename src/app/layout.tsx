@@ -41,17 +41,17 @@ export default async function RootLayout({
   );
 }
 
-const url = "https://frontend-fororo.vercel.app";
+const url = "https://forif.org";
 export const metadata: Metadata = {
   metadataBase: new URL(url),
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Fororo",
+    title: "FORIF",
     description: "FORIF Integration Management Website",
     url: url,
-    siteName: "Fororo",
+    siteName: "FORIF",
     images: [
       {
         url: "https://imgur.com/RCuyB05.png",

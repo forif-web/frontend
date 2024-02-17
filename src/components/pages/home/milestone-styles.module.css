@@ -57,12 +57,25 @@
   -webkit-box-pack: start;
   justify-content: flex-start;
 }
+
+@media (max-width: 768px) {
+  .wrap_cont {
+    flex-direction: column;
+  }
+}
+
 .wrap_cont > strong {
   font-size: 26px;
 }
 .inner_cont {
   margin-left: 56px;
   font-size: 18px;
+}
+
+@media (max-width: 768px) {
+  .inner_cont {
+    margin-left: 0;
+  }
 }
 
 .milestone

@@ -26,6 +26,9 @@ module.exports = {
       transitionDuration: {
         line: "3000ms",
       },
+      transitionProperty: {
+        width: "width",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

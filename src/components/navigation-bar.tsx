@@ -18,7 +18,6 @@ export function NavigationBar() {
   const scrollY = GetScrollY();
   const { data: session } = useSession();
   const pathname = usePathname();
-
   return (
     <header
       className={`flex items-center justify-between px-6 h-[60px] fixed left-0 right-0 top-0 bg-white bg-opacity-75 backdrop-blur z-10 ${
@@ -47,9 +46,9 @@ export function NavigationBar() {
           {pathname === "/" && <NavTab href="#about_us">About us</NavTab>}
           {pathname === "/" && <NavTab href="#howitworks">How it works</NavTab>}
           {pathname === "/" && <NavTab href="#projects">Projects</NavTab>}
-          {pathname !== "/auth/signin" && pathname !== "/auth/signup" && (
-            <GoogleLoginButton />
-          )}
+          {pathname !== "/auth/signin" &&
+            pathname !== "/auth/signup" &&
+            pathname !== "/auth/error" && <GoogleLoginButton />}
         </nav>
       )}
 

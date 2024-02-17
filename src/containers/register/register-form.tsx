@@ -18,52 +18,46 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import handleSignUp from "@/hooks/api/handleSignUp";
 import ToastEmitter from "@/hooks/toastEmitter";
-import { HYU_DEPARTMENTS } from "@/lib/default_form";
+import { HYU_DEPARTMENTS, signUpSchema } from "@/lib/default_form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import "react-toastify/dist/ReactToastify.css";
+import useSWR from "swr";
 import z from "zod";
-const formSchema = z.object({
-  username: z
-    .string()
-    .min(2, { message: "이름은 2글자 이상이어야 합니다." })
-    .max(20, { message: "이름은 20글자 이하여야 합니다." }),
-  userId: z.string().transform((val, ctx) => {
-    if (val.length !== 10) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "학번은 10자리여야 합니다.",
-      });
-    }
-    return val;
-  }),
-  department: z.string().min(1, { message: "학과를 선택해주세요." }),
-});
+
+interface signUpDataType extends z.infer<typeof signUpSchema> {
+  id_token: string | undefined;
+}
 
 export default function RegisterForm() {
   const { data: session } = useSession();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof signUpSchema>>({
+    resolver: zodResolver(signUpSchema),
     defaultValues: {
       username: "",
       userId: "",
       department: "",
+      phoneNumber: "",
     },
   });
 
   //submit 버튼 클릭시
-  async function onSubmit(data: z.infer<typeof formSchema>) {
+  async function onSubmit(data: z.infer<typeof signUpSchema>) {
+    const fetcher = (url: string) =>
+      axios
+        .post(url, {
+          headers: {
+            Authorization: `Bearer ${session?.user.token.id_token}`,
+          },
+          body: JSON.stringify(data),
+        })
+        .then((res) => res.data);
     try {
-      const res = await handleSignUp({
-        id_token: session?.user.token.id_token,
-        username: data.username,
-        userId: data.userId,
-        department: data.department,
-      });
+      const { data, error, isLoading } = useSWR("/api/signup", fetcher);
       console.log(data);
     } catch (err) {
       console.log(err);

@@ -1,11 +1,11 @@
-type signUpType = {
-  id_token: string | undefined;
-  username: string;
-  userId: string;
-  department: string;
-};
+import { signUpSchema } from "@/lib/default_form";
+import z from "zod";
 
-const handleSignUp = async (userData: signUpType) => {
+interface signUpDataType extends z.infer<typeof signUpSchema> {
+  id_token: string | undefined;
+}
+
+const handleSignUp = async (userData: signUpDataType) => {
   const URL = `${process.env.API_BASEURL}:${process.env.API_BASEPORT}`;
   const data: Response = await fetch(`${URL}/signup`, {
     method: "POST",
@@ -16,8 +16,9 @@ const handleSignUp = async (userData: signUpType) => {
       username: userData.username,
       userId: userData.userId,
       department: userData.department,
+      phoneNumber: userData.phoneNumber,
     }),
-    cache: "default",
+    cache: "no-cache",
   });
   return data;
 };

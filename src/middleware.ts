@@ -1,6 +1,6 @@
 import { JWT, getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
-const withAuthList = ["/profile", "/studies/:path*", "/apply"];
+const withAuthList = ["/profile", "/studies/:path*", "/studies", "/apply"];
 const withOutAuthList = ["/auth/signin"];
 function withAuth(req: NextRequest, token: JWT | null) {
   if (!token) {
@@ -35,5 +35,11 @@ export async function middleware(req: NextRequest) {
 
 // 미들웨어가 실행될 특정 pathname을 지정하면, 해당 pathname에서만 실행 가능
 export const config = {
-  matcher: ["/profile", "/studies/:path*", "/auth/signin", "/apply"],
+  matcher: [
+    "/profile",
+    "/studies/:path*",
+    "/studies",
+    "/auth/signin",
+    "/apply",
+  ],
 };

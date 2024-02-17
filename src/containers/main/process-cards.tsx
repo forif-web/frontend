@@ -34,7 +34,7 @@ export default function ProcessCards() {
         />
       </button>
       <Image
-        src={"/images/main/arrow_right.svg"}
+        src={"icons/arrow_right.svg"}
         width={60}
         height={60}
         alt="arrow right"
@@ -50,7 +50,7 @@ export default function ProcessCards() {
         />
       </button>
       <Image
-        src={"/images/main/arrow_right.svg"}
+        src={"icons/arrow_right.svg"}
         width={60}
         height={60}
         alt="arrow right"

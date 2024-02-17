@@ -50,11 +50,12 @@ function Page({ params }: { params: { sid: string } }) {
       />
       <div className="flex flex-row w-10/12 max-w-4xl gap-2 justify-start pt-2">
         <Badge className="mb-0.5">{data.studyType}스터디</Badge>
-        {data.tags.map((val, idx) => (
-          <Badge className={`mb-0.5 bg-${langColorMap[val]}-500`} key={idx}>
-            {val.toUpperCase()}
-          </Badge>
-        ))}
+        {data.tags &&
+          data.tags.map((val, idx) => (
+            <Badge className={`mb-0.5 bg-${langColorMap[val]}-500`} key={idx}>
+              {val.toUpperCase()}
+            </Badge>
+          ))}
         {data.interview && (
           <Badge className="bg-red-500 hover:bg-red-400">면접</Badge>
         )}

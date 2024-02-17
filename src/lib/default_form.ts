@@ -11,6 +11,16 @@ const formSchema = z.object({
   profileImage: z.string(),
 });
 
+const signUpSchema = z.object({
+  username: z
+    .string()
+    .min(2, { message: "이름은 2글자 이상이어야 합니다." })
+    .max(20, { message: "이름은 20글자 이하여야 합니다." }),
+  userId: z.string().length(10, { message: "학번은 10글자여야 합니다." }),
+  department: z.string().length(1, { message: "학과를 선택해주세요." }),
+  phoneNumber: z.string().min(1, { message: "전화번호를 입력해주세요." }),
+});
+
 const applySchema = z.object({
   primary_study: z
     .string()
@@ -89,4 +99,4 @@ const HYU_DEPARTMENTS: {
   산업융합학부: ["산업융합학부"],
 };
 
-export { HYU_DEPARTMENTS, applySchema, formSchema };
+export { HYU_DEPARTMENTS, applySchema, formSchema, signUpSchema };

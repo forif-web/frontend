@@ -37,6 +37,9 @@ const authOptions = {
       }
       return token;
     },
+    async redirect({ url, baseUrl }) {
+      return baseUrl;
+    },
     async session({ session, token, user }) {
       session.user.token = token;
       return session;
@@ -57,11 +60,7 @@ const authOptions = {
           if (res) return true;
           else return "/auth/error/?errorCode=405";
         } else {
-          ToastEmitter({
-            type: "error",
-            text: "한양대학교 계정을 사용해주세요.",
-          });
-          return "/auth/error";
+          return "/auth/error?error=InvalidEmailAccount";
         }
       }
       ToastEmitter({ type: "success", text: "로그인에 성공했습니다!" });
@@ -70,6 +69,7 @@ const authOptions = {
   },
   pages: {
     signIn: "/auth/signin",
+    error: "/auth/error",
   },
 } satisfies NextAuthOptions;
 

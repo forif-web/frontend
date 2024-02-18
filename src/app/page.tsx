@@ -4,9 +4,7 @@ import milestone from "@/components/pages/home/milestoneData";
 import { Button } from "@/components/ui/button";
 import Carousel from "@/containers/main/carousel";
 import ProcessCards from "@/containers/main/process-cards";
-import PromotionalText from "@/containers/main/promotion_text";
 import handleObserver from "@/hooks/intersectionObserver";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import CountUp from "react-countup";
@@ -69,39 +67,6 @@ export default function HomePage() {
           </div>
         </section>
         <div id="about_us"></div>
-        <section className="mt-20 flex flex-col items-center min-h-fit w-full relative bg-gray-50 py-16">
-          <div className="flex md:flex-row gap-10 justify-between flex-col items-center w-10/12 max-w-8xl h-[calc(100%-60px)]">
-            <div className="md:flex-[2]">
-              <PromotionalText />
-            </div>
-            <div className="grid grid-cols-2 grid-rows-2 gap-8 animate-pulse flex-1 w-full place-items-center md:place-items-start">
-              <Image
-                src={"icons/Java.svg"}
-                width={60}
-                height={60}
-                alt="Java Logo"
-              />
-              <Image
-                src={"icons/CSharp.svg"}
-                width={60}
-                height={60}
-                alt="C# Logo"
-              />
-              <Image
-                src={"icons/Python.svg"}
-                width={60}
-                height={60}
-                alt="Python Logo"
-              />
-              <Image
-                src={"icons/TypeScript.svg"}
-                width={60}
-                height={60}
-                alt="Javascript Logo"
-              />
-            </div>
-          </div>
-        </section>
         <section className="mt-20 flex flex-col items-center min-h-fit w-full relative">
           <div className="flex md:flex-row flex-col w-10/12 max-w-8xl h-[calc(100%-60px)]">
             <div className="w-full">

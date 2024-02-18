@@ -20,10 +20,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import ToastEmitter from "@/hooks/toastEmitter";
 import { applySchema } from "@/lib/default_form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TextArea } from "@radix-ui/themes";
 import axios from "axios";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import useSWR from "swr";
@@ -37,24 +40,35 @@ export default function Apply() {
     "/api/study/name",
     fetcher
   );
+  const { data: session } = useSession();
 
   //FORM SCHEMA
   const form = useForm<z.infer<typeof applySchema>>({
     resolver: zodResolver(applySchema),
     defaultValues: {
-      primary_study: "",
-      secondary_study: "",
-      primary_intro: "",
-      secondary_intro: "",
+      primaryStudy: "",
+      secondaryStudy: "",
+      primaryIntro: "",
+      secondaryIntro: "",
       career: "",
     },
   });
 
   const [primaryStudySelected, setPrimaryStudySelected] = useState("");
   const [secondaryStudySelected, setSecondaryStudySelected] = useState("");
-
-  function onSubmit(formResponse: z.infer<typeof applySchema>) {
-    console.log(formResponse);
+  const router = useRouter();
+  async function onSubmit(data: z.infer<typeof applySchema>) {
+    try {
+      const response = await axios.post("/api/apply", data, {
+        headers: {
+          Authorization: `Bearer ${session?.user.token.id_token}`,
+        },
+      });
+      ToastEmitter({ type: "success", text: "스터디 신청에 성공했습니다." });
+      router.push("/profile");
+    } catch (err) {
+      ToastEmitter({ type: "error", text: "신청 실패!" });
+    }
   }
 
   //CHECKBOX
@@ -65,7 +79,7 @@ export default function Apply() {
       form.setValue("career", "없음");
     }
     if (secondaryStudySelected === "미참여") {
-      form.setValue("secondary_intro", "");
+      form.setValue("secondaryIntro", "");
     }
   }, [experienced, secondaryStudySelected]);
 
@@ -150,7 +164,7 @@ export default function Apply() {
           className="space-y-4 w-10/12 max-w-4xl"
         >
           <FormField
-            name="primary_study"
+            name="primaryStudy"
             control={form.control}
             render={({ field: { onChange, ...fieldProps } }) => (
               <FormItem>
@@ -173,7 +187,7 @@ export default function Apply() {
             )}
           />
           <FormField
-            name="primary_intro"
+            name="primaryIntro"
             control={form.control}
             render={({ field }) => (
               <FormItem>
@@ -189,7 +203,7 @@ export default function Apply() {
             )}
           />
           <FormField
-            name="secondary_study"
+            name="secondaryStudy"
             control={form.control}
             render={({ field: { onChange, ...fieldProps } }) => (
               <FormItem>
@@ -219,7 +233,7 @@ export default function Apply() {
           {secondaryStudySelected !== "미참여" &&
             secondaryStudySelected !== "" && (
               <FormField
-                name="secondary_intro"
+                name="secondaryIntro"
                 control={form.control}
                 render={({ field }) => (
                   <FormItem>

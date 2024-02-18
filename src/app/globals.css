@@ -93,3 +93,7 @@ var {
   width: 300px !important;
   height: 300px !important;
 }
+
+.Card { 
+  transition: flex-grow 0.3s ease;
+}

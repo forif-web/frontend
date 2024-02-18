@@ -20,7 +20,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     const data: userResponseType = await response.json();
 
     const studyRes: Response = await fetch(
-      `${URL}/studies?year=${year}&semester=${semester}&studyId=${data.currentStudy}`,
+      `${URL}/studies?year=${year}&semester=${semester}&studyId=${data.currentStudyId}`,
       {
         method: "GET",
       }

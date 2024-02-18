@@ -27,10 +27,10 @@ export function NavigationBar() {
       <Link href="/">
         <div className="flex items-center">
           <Image
-            src={"/icons/forif.svg"}
+            src={"/icons/hforif.png"}
             alt="Logo"
-            width={88}
-            height={36}
+            width={50}
+            height={50}
             priority
           />
         </div>

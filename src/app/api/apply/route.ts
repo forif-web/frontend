@@ -1,17 +1,19 @@
 import getToken from "@/hooks/api/getToken";
-import getYearAndSemester from "@/hooks/getYearAndSemester";
 import { NextRequest, NextResponse } from "next/server";
-export async function GET(req: NextRequest, res: NextResponse) {
-  const { year, semester } = getYearAndSemester();
+export async function POST(req: NextRequest, res: NextResponse) {
   const URL = `${process.env.API_BASEURL}:${process.env.API_BASEPORT}`;
   const idToken = await getToken({ req });
-  const response: Response = await fetch(
-    `${URL}/studies/apply?year=${year}&semester=${semester}`,
-    {
-      method: "POST",
-      cache: "no-cache",
-    }
-  );
+  const payload = await req.json();
+
+  const response: Response = await fetch(`${URL}/apply`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${idToken}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+    cache: "no-cache",
+  });
 
   if (response.ok) {
     const data = await response.json();

@@ -84,6 +84,8 @@ export default function ProfilePage() {
           tags={tags}
         />
       );
+    } else {
+      return <h1>수강하고 있는 스터디가 없습니다.</h1>;
     }
   }
 

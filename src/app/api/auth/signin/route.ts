@@ -10,17 +10,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
       headers: {
         Authorization: `Bearer ${idToken}`,
       },
+      cache: "no-cache",
     });
-    if (response.ok) {
-      const data = await response.json();
-
-      return NextResponse.json(data);
-    } else {
-      return NextResponse.json({
-        message: "응답이 올바르지 않습니다.",
-        status: 200,
-      });
-    }
+    const data = await response.json();
+    return NextResponse.json(data);
   } else {
     return NextResponse.json({
       message: "로그인하지 않았거나 토큰이 존재하지 않습니다.",

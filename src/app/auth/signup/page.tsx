@@ -1,9 +1,21 @@
-"use client";
 import RegisterForm from "@/containers/register/register-form";
+import verifyIdToken from "@/hooks/verifyIdToken";
 import { Flex, Text } from "@radix-ui/themes";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 export default function SignUp() {
+  //signIn 과정을 거쳤는가?
+  const cookieList = cookies();
+  if (!cookieList.has("id_token")) redirect("/auth/signin");
+
+  // 토큰 검증
+  const idToken = cookieList.get("id_token")?.value;
+  if (!verifyIdToken(idToken)) {
+    redirect("/auth/signin");
+  }
+
   return (
-    <main className="min-h-full w-full">
+    <main className="min-h-full w-full pt-[30px]">
       <Flex
         direction="column"
         gap="2"
@@ -14,15 +26,9 @@ export default function SignUp() {
             <Text size="6" weight="bold" className="text-gray-50">
               회원가입
             </Text>
-            <Text size="2" weight="medium" className="text-gray-400 mb-2">
-              운영진 확인 후 가입이 승인됩니다.
-            </Text>
-            <Text size="2" weight="medium" className="text-gray-400">
-              2/2
-            </Text>
           </div>
           <div className="flex flex-col justify-start p-6 md:w-8/12">
-            <RegisterForm />
+            <RegisterForm idToken={idToken} />
           </div>
         </div>
       </Flex>

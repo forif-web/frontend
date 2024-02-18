@@ -1,22 +1,27 @@
 interface StudyInterface {
-  clubId: number;
-  date: string;
+  studyId: number;
+  tags: string[];
+  mentorId: number;
+  studyName: string;
+  mentorName: string;
   startTime: string;
   endTime: string;
-  interview: boolean;
   level: 1 | 2 | 3 | 4 | 5;
-  mentorName: string;
-  mentorId: number;
-  studyId: number;
-  studyName: string;
+  date: string;
+  interview: boolean;
   image: string;
-  studyType: "정규" | "자율";
-  tags: string[];
+  studyType: "자율" | "정규";
 }
 
 interface DetailStudyInterface extends StudyInterface {
   goal: string;
   explanation: string;
+  mentorEmail: string | null;
+  location: any;
+  maximumUsers: any;
+  reference: any;
+  weeklyPlan: any;
+  conditions: any;
 }
 
 export const langColorMap: Record<string, string> = {

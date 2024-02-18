@@ -3,10 +3,8 @@ import { DetailStudyInterface, langColorMap } from "@/app/types/study";
 import SpinningCircle from "@/components/common/skeleton/spinning-circle";
 import Summary from "@/components/pages/profile/summary";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Text } from "@radix-ui/themes";
 import axios from "axios";
-import Link from "next/link";
 import useSWR from "swr";
 function Page({ params }: { params: { sid: string } }) {
   const fetcher = (url: string) => axios.get(url, {}).then((res) => res.data);
@@ -83,12 +81,6 @@ function Page({ params }: { params: { sid: string } }) {
             {data.date} {data.startTime} - {data.endTime}
           </Text>
         </div>
-
-        <Button>
-          <Link href={"/apply"} className="w-full">
-            지원하기
-          </Link>
-        </Button>
       </div>
     </>
   );

@@ -17,7 +17,6 @@ function HomeStudyCardContainer({
           endTime={val.endTime}
           image={val.image}
           key={val.studyId}
-          clubId={val.clubId}
           date={val.date}
           interview={val.interview}
           level={val.level}

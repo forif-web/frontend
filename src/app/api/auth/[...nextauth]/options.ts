@@ -1,17 +1,26 @@
-import ToastEmitter from "@/hooks/toastEmitter";
 import { NextAuthOptions } from "next-auth";
 import Google from "next-auth/providers/google";
 import Naver from "next-auth/providers/naver";
+import { cookies } from "next/headers";
+export type signInResponseType = existMemberResponse | newMemberResponse;
 
-export type signInResponseType = {
-  data: {
-    id: number;
-    email: string;
-    userName: string;
-    department: string;
-    image: string;
-    userAuthorization: "관리자" | "유저" | "운영진";
-  };
+export type existMemberResponse = {
+  timestamp: string;
+  status: number;
+  error: string;
+  message: string;
+  path: string;
+};
+
+export type newMemberResponse = {
+  id: number;
+  email: string;
+  userName: string;
+  department: string;
+  image: string;
+  phoneNumber: string;
+  userAuthorization: string;
+  apply: null | string[];
 };
 
 const authOptions = {
@@ -37,9 +46,6 @@ const authOptions = {
       }
       return token;
     },
-    async redirect({ url, baseUrl }) {
-      return baseUrl;
-    },
     async session({ session, token, user }) {
       session.user.token = token;
       return session;
@@ -54,16 +60,34 @@ const authOptions = {
               headers: {
                 Authorization: `Bearer ${account.id_token}`,
               },
+              cache: "no-cache",
             }
           );
-          const res = await data.json();
-          if (res) return true;
-          else return "/auth/error/?errorCode=405";
+          const res: signInResponseType = await data.json();
+          if ("id" in res) {
+            //이미 가입한 회원
+            cookies().delete("email");
+            cookies().delete("username");
+            cookies().set("id_token", account.id_token!);
+            //context 추가!
+            return true;
+          } else {
+            //요청이 잘못되었거나, 새로 가입한 회원
+            if (res.error === "Unauthorized") {
+              //새로 가입한 회원일시
+              cookies().set("email", profile.email);
+              cookies().set("username", profile.name!);
+              cookies().set("id_token", account.id_token!);
+              return "/auth/signup";
+            } else {
+              //요청이 잘못되었을시
+              return "/auth/error?error=InvalidServerResponse";
+            }
+          }
         } else {
           return "/auth/error?error=InvalidEmailAccount";
         }
       }
-      ToastEmitter({ type: "success", text: "로그인에 성공했습니다!" });
       return true;
     },
   },

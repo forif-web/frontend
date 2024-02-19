@@ -63,10 +63,22 @@ export function NavigationBar() {
           <SheetContent className="w-64">
             <SheetFooter>
               <SheetClose asChild>
-                <NavTab href="/attendance">전자출결</NavTab>
-                <NavTab href="/attendance">전자출결</NavTab>
-                <NavTab href="/attendance">전자출결</NavTab>
-                <NavTab href="/attendance">전자출결</NavTab>
+                {session && pathname !== "/auth/signup" ? (
+                  <>
+                    <NavTab href="/profile">프로필</NavTab>
+                    <NavTab href="/studies">스터디 목록</NavTab>
+                    <NavTab href="/apply">지원하기!</NavTab>
+                  </>
+                ) : (
+                  <>
+                    {pathname === "/" && (
+                      <NavTab href="/auth/signin">로그인 하기</NavTab>
+                    )}
+                    {pathname !== "/auth/signin" &&
+                      pathname !== "/auth/signup" &&
+                      pathname !== "/auth/error" && <GoogleLoginButton />}
+                  </>
+                )}
               </SheetClose>
             </SheetFooter>
           </SheetContent>

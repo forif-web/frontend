@@ -5,11 +5,25 @@ import { Button } from "@/components/ui/button";
 import Carousel from "@/containers/main/carousel";
 import ProcessCards from "@/containers/main/process-cards";
 import handleObserver from "@/hooks/intersectionObserver";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import CountUp from "react-countup";
-import { TypeAnimation } from "react-type-animation";
-import { sourceCodePro } from "./fonts/fonts";
+
+const draw = {
+  hidden: { pathLength: 0, opacity: 0 },
+  visible: (i: number) => {
+    const delay = 1 + i * 0.5;
+    return {
+      pathLength: 1,
+      opacity: 1,
+      transition: {
+        pathLength: { delay, type: "spring", duration: 2, bounce: 0 },
+        opacity: { delay, duration: 0.01 },
+      },
+    };
+  },
+};
 
 export default function HomePage() {
   //CountUp 애니메이션
@@ -26,44 +40,114 @@ export default function HomePage() {
 
   return (
     <>
-      <main className={`pt-16 mb-8 min-h-full h-fit`}>
-        <section className="h-screen w-full flex">
-          <div className="flex flex-col gap-12 justify-center items-center h-[calc(100%-60px)] w-full">
-            <div className="md:text-6xl text-4xl font-bold whitespace-pre-line tracking-wide flex flex-col gap-10 text-gray-900">
-              <div className="flex flex-row gap-2">
-                <TypeAnimation
-                  wrapper="span"
-                  preRenderFirstString={true}
-                  sequence={[
-                    2000,
-                    "개발자",
-                    2000,
-                    "팀 프로젝트",
-                    2000,
-                    "새로운 경험",
-                    2000,
-                    "한양대생",
-                    3000,
-                  ]}
-                  speed={8}
-                  repeat={Infinity}
-                  className="text-forif"
-                />
-                <span>위한</span>
-              </div>
-              <h1
-                className={sourceCodePro.className}
-                style={{ fontWeight: "bold", textAlign: "center" }}
-              >
-                FORIF
+      <main className={`mb-8 min-h-full h-fit`}>
+        <section className="flex flex-col items-center justify-center md:justify-end min-h-screen w-full pb-20">
+          <div className="flex md:flex-row flex-col w-10/12 max-w-8xl h-[calc(100%-60px)]">
+            <div className="w-full flex flex-col gap-5">
+              <h1 className="md:text-[80px] text-5xl font-bold leading-tight text-gray-900 uppercase">
+                <span className="text-blue-900">프로그래밍</span>을 향한
+                <br />
+                열정만 있다면
               </h1>
+              <div>
+                <p className="text-xl">2024.02.26 - 2024.03.06</p>
+              </div>
+              <div>
+                <Button variant={"default"} size={"xl"}>
+                  <Link href={"/studies"}>APPLY NOW</Link>
+                </Button>
+              </div>
             </div>
-            <div>
-              <p className="text-xl">2024.02.26 - 2024.03.06</p>
+            <div className="hidden md:block framer">
+              <motion.svg
+                width="360"
+                height="360"
+                viewBox="0 0 500 360"
+                initial="hidden"
+                animate="visible"
+                style={{
+                  strokeWidth: "10px",
+                  strokeLinecap: "round",
+                  fill: "transparent",
+                }}
+              >
+                <motion.rect
+                  width="360"
+                  height="280"
+                  x="40"
+                  y="40"
+                  rx="20"
+                  stroke="#000000"
+                  variants={draw}
+                  custom={0}
+                  style={{
+                    strokeWidth: "10px",
+                    strokeLinecap: "round",
+                    fill: "transparent",
+                  }}
+                />
+                <motion.line
+                  x1="160"
+                  y1="350"
+                  x2="270"
+                  y2="350"
+                  strokeWidth={10}
+                  stroke="#000000"
+                  variants={draw}
+                  custom={1}
+                  style={{
+                    strokeWidth: "10px",
+                    strokeLinecap: "round",
+                    fill: "transparent",
+                  }}
+                />
+                <motion.line
+                  x1="100"
+                  y1="380"
+                  x2="340"
+                  y2="380"
+                  strokeWidth={10}
+                  stroke="#000000"
+                  variants={draw}
+                  custom={2}
+                  style={{
+                    strokeWidth: "16",
+                    strokeLinecap: "round",
+                    fill: "transparent",
+                  }}
+                />
+                <motion.line
+                  x1="120"
+                  y1="80"
+                  x2="80"
+                  y2="120"
+                  strokeWidth={10}
+                  stroke="#000000"
+                  variants={draw}
+                  custom={2}
+                  style={{
+                    strokeWidth: "10px",
+                    strokeLinecap: "round",
+                    fill: "transparent",
+                  }}
+                />
+                <motion.line
+                  x1="160"
+                  y1="70"
+                  x2="70"
+                  y2="160"
+                  strokeWidth={10}
+                  stroke="#000000"
+                  variants={draw}
+                  custom={2}
+                  style={{
+                    strokeWidth: "10px",
+                    strokeLinecap: "round",
+                    fill: "transparent",
+                  }}
+                />
+              </motion.svg>
             </div>
-            <Button variant={"default"} size={"lg"}>
-              <Link href={"/studies"}>APPLY NOW</Link>
-            </Button>
           </div>
         </section>
         <div id="about_us"></div>

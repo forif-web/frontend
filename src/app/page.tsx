@@ -258,6 +258,13 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+        <Button
+          variant={"default"}
+          size={"lg"}
+          className="fixed right-10 bottom-10"
+        >
+          <Link href={"/apply/mentor"}>멘토 모집 중</Link>
+        </Button>
       </main>
     </>
   );

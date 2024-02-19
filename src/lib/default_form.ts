@@ -1,3 +1,4 @@
+import { langColorMap } from "@/app/types/study";
 import { z } from "zod";
 
 const formSchema = z.object({
@@ -47,6 +48,39 @@ const applySchema = z.object({
     .min(1, { message: "개발 경험은 반드시 작성해야 합니다." })
     .max(50, { message: "50자 이하로 작성해주세요." }),
 });
+
+const mentorApplySchema = z.object({
+  studyName: z
+    .string()
+    .min(1, { message: "1순위 스터디는 반드시 작성해야 합니다." }),
+  explanation: z
+    .string()
+    .min(1, { message: "간단한 설명은 반드시 작성해야 합니다." }),
+  tag: z.string().array(),
+  goal: z.string(),
+  date: z.string(),
+  startTime: z.object({
+    _d: z.string(),
+  }),
+  endTime: z.any(),
+  studyType: z.string(),
+  location: z.string(),
+  //2nd page
+  level: z
+    .number()
+    .min(1, { message: "1부터 5사이의 숫자를 선택해주세요." })
+    .max(5, { message: "1부터 5사이의 숫자를 선택해주세요." }),
+  maximumUsers: z.number().min(1, { message: "반드시 작성해야 합니다." }),
+  weeklyPlan: z
+    .string()
+    .min(1, { message: "주차별 계획은 반드시 작성해야 합니다." }),
+  conditions: z
+    .string()
+    .min(1, { message: "이수 조건은 반드시 작성해야 합니다." }),
+  interview: z.boolean(),
+});
+
+const tags = Object.keys(langColorMap);
 
 const HYU_DEPARTMENTS: {
   [key: string]: string[];
@@ -108,4 +142,11 @@ const HYU_DEPARTMENTS: {
   산업융합학부: ["산업융합학부"],
 };
 
-export { HYU_DEPARTMENTS, applySchema, formSchema, signUpSchema };
+export {
+  HYU_DEPARTMENTS,
+  applySchema,
+  formSchema,
+  mentorApplySchema,
+  signUpSchema,
+  tags,
+};

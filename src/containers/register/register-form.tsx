@@ -59,8 +59,6 @@ export default function RegisterForm({
             Authorization: `Bearer ${idToken}`,
           },
         });
-        console.log(response);
-
         ToastEmitter({ type: "success", text: "회원가입에 성공했습니다." });
         router.push("/");
       } catch (err) {

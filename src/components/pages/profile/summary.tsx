@@ -15,7 +15,7 @@ function Summary({
         src={imageUrl}
         width={128}
         height={128}
-        className="rounded-full object-cover -mt-16 border-4 border-white shadow-lg"
+        className="rounded-xl object-cover -mt-16 border-4 border-white shadow-lg"
         alt="profile"
       />
       <div className="mt-2">

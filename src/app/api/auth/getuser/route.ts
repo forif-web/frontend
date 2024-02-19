@@ -1,12 +1,13 @@
 import { userResponseType } from "@/app/profile/page";
 import getYearAndSemester from "@/hooks/getYearAndSemester";
-import { cookies } from "next/headers";
+import { getServerSession } from "next-auth/next";
 import { NextRequest, NextResponse } from "next/server";
+import { authOptions } from "../[...nextauth]/options";
 export async function GET(req: NextRequest, res: NextResponse) {
   const URL = `${process.env.API_BASEURL}:${process.env.API_BASEPORT}`;
   const { year, semester } = getYearAndSemester();
-  const cookieList = cookies();
-  const id_token = cookieList.get("id_token")?.value;
+  const session = await getServerSession(authOptions);
+  const id_token = session?.user.token.id_token;
 
   if (id_token) {
     const response: Response = await fetch(`${URL}/user`, {
@@ -20,7 +21,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     const data: userResponseType = await response.json();
 
     const studyRes: Response = await fetch(
-      `${URL}/studies?year=${year}&semester=${semester}&studyId=${data.currentStudy}`,
+      `${URL}/studies?year=${year}&semester=${semester}&studyId=${data.currentStudyId}`,
       {
         method: "GET",
       }

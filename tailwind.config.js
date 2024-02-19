@@ -10,7 +10,7 @@ module.exports = {
   safelist: [
     {
       pattern:
-        /bg-(blue|green|orange|yellow|purple|red|emerald|cyan|violet|rose|gray|sky)-(100|200|300|400|500)/,
+        /bg-(blue|green|orange|yellow|purple|red|emerald|cyan|violet|rose|gray|sky|lime)-(100|200|300|400|500)/,
       variants: ["hover", "focus"],
     },
   ],
@@ -86,5 +86,9 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("tailwind-scrollbar-hide")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("tailwind-scrollbar-hide"),
+    require("tailwindcss/nesting"),
+  ],
 };

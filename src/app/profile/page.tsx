@@ -17,12 +17,11 @@ export type getUserResponseType = {
 };
 
 export type userResponseType = {
-  currentStudy: number | string;
+  currentStudyId: number | string;
   department: string;
   email: string;
   image: string;
   passedStudyId: number[];
-  passedStudyName: string[];
   phoneNumber: string;
   userId: number;
   userName: string;
@@ -50,7 +49,6 @@ export default function ProfilePage() {
   if (!data) {
     return <div>데이터가 존재하지 않습니다.</div>;
   }
-  console.log(data);
 
   function renderCurrentStudy() {
     if (data?.studyData.studyId) {
@@ -98,7 +96,7 @@ export default function ProfilePage() {
       />
       {/* divider */}
       <div className="w-10/12 max-w-4xl h-px bg-gray-200 my-4"></div>
-      <div className="flex flex-col w-10/12 max-w-4xl py-2">
+      <div className="flex flex-col w-10/12 max-w-4xl py-2 mb-10">
         <Text size="5" weight="bold" className="text-gray-900">
           참여 중 스터디
         </Text>

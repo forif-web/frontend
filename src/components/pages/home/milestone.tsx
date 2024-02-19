@@ -91,7 +91,7 @@ export default function Milestone({
         ))}
       </ul>
       <div
-        className="w-10 transition-all duration-line bg-gradient-to-b from-cyan-500 to-forif"
+        className="w-10 transition-all duration-line bg-gradient-to-b from-gray-50 to-gray-900"
         style={{ height: `${lineVisible ? `100` : `10`}%` }}
       />
 

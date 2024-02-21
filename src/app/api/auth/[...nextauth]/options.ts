@@ -65,6 +65,8 @@ const authOptions = {
           );
           const res: signInResponseType = await data.json();
           if ("id" in res) {
+            cookies().set("idToken", account.id_token!);
+
             return true;
           } else {
             //요청이 잘못되었거나, 새로 가입한 회원

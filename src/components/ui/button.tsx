@@ -10,6 +10,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        forif: "bg-forif text-primary-foreground hover:bg-forif/90",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
@@ -22,7 +23,7 @@ const buttonVariants = cva(
           "bg-white border-2 border-black hover:bg-accent hover:text-accent-foreground text-base",
       },
       size: {
-        default: "h-10 px-4 py-2",
+        default: "h-10 px-3 rounded-md py-2",
         sm: "h-9 rounded-md px-3",
         lg: "h-11 rounded-md px-8",
         xl: "h-14 rounded-md px-12",

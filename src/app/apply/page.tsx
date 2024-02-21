@@ -161,7 +161,7 @@ export default function Apply() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-4 w-10/12 max-w-4xl"
+          className="space-y-4 w-10/12 max-w-xl"
         >
           <FormField
             name="primaryStudy"
@@ -177,7 +177,7 @@ export default function Apply() {
                 >
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="스터디를 선택해주세요." />
+                      <SelectValue placeholder="" />
                     </SelectTrigger>
                   </FormControl>
                   <StudySelector selectType="primary" />
@@ -196,7 +196,7 @@ export default function Apply() {
                   스터디(1순위)에 들어오고 싶은 이유
                 </FormDescription>
                 <FormControl>
-                  <TextArea placeholder="50자 이상 작성해주세요." {...field} />
+                  <TextArea className="rounded-xl focus:ring-ring" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -209,7 +209,6 @@ export default function Apply() {
               <FormItem>
                 <FormLabel>2순위 스터디</FormLabel>
                 <FormDescription>
-                  만약 1순위 스터디에 참여하지 못햘 시 참여할 스터디입니다.
                   1순위 스터디 선택 이후 선택 가능합니다.
                 </FormDescription>
                 <Select
@@ -261,12 +260,12 @@ export default function Apply() {
               <FormItem>
                 <FormLabel>경험</FormLabel>
                 <FormDescription>
-                  본인의 개발 경험에 대해 알려주세요. 개발해보신 적이 없다면
-                  아래 체크박스에 체크해주세요.
+                  본인의 개발 경험에 대해 알려주세요.
                 </FormDescription>
                 <FormControl>
                   <TextArea
                     placeholder="50자 이하로 작성해주세요."
+                    className="focus:ring-ring rounded-xl"
                     {...field}
                   />
                 </FormControl>
@@ -275,7 +274,7 @@ export default function Apply() {
             )}
           />
           <CheckBox
-            label="개발해본 경험 없음."
+            label="개발 미경험"
             checked={experienced}
             onChange={setExperienced}
             id="experienced"
@@ -287,7 +286,8 @@ export default function Apply() {
             onChange={setTerm}
             id="term"
           />
-          <Button type="submit" disabled={!term}>
+          <div className="h-4" />
+          <Button type="submit" variant={"forif"} disabled={!term} size={"lg"}>
             제출하기
           </Button>
         </form>

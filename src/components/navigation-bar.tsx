@@ -20,69 +20,73 @@ export function NavigationBar() {
   const pathname = usePathname();
   return (
     <header
-      className={`flex items-center justify-between px-6 h-[60px] fixed left-0 right-0 top-0 bg-white bg-opacity-75 backdrop-blur z-10 ${
+      className={`fixed left-0 right-0 top-0 z-10 bg-white ${
         scrollY !== 0 && "border-b border-gray-200"
       }`}
     >
-      <Link href="/">
-        <div className="flex items-center">
-          <Image
-            src={"/icons/hforif.png"}
-            alt="Logo"
-            width={50}
-            height={50}
-            priority
-          />
-        </div>
-      </Link>
-      {session && pathname !== "/auth/signup" ? (
-        <nav className="flex items-center space-x-6 max-md:hidden">
-          {pathname !== "/apply" && <NavTab href="/apply">지원하기!</NavTab>}
-          <NavTab href="/studies">스터디 목록</NavTab>
-          <NavTab href="/profile">프로필</NavTab>
-        </nav>
-      ) : (
-        <nav className="flex items-center space-x-6 max-md:hidden">
-          {pathname === "/" && <NavTab href="#about_us">About us</NavTab>}
-          {pathname === "/" && <NavTab href="#howitworks">How it works</NavTab>}
-          {pathname === "/" && <NavTab href="#projects">Projects</NavTab>}
-          {pathname !== "/auth/signin" &&
-            pathname !== "/auth/signup" &&
-            pathname !== "/auth/error" && <GoogleLoginButton />}
-        </nav>
-      )}
+      <nav className="flex items-center justify-between m-auto w-full h-[60px] md:px-8 px-4 max-w-[1240px] relative">
+        <Link href="/">
+          <div className="flex items-center">
+            <Image
+              src={"/icons/logo.svg"}
+              alt="Logo"
+              width={80}
+              height={40}
+              priority
+            />
+          </div>
+        </Link>
 
-      {/* dropdown menu */}
-      <nav className="hidden max-md:flex items-center space-x-6">
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button variant="ghost" size="icon">
-              <FiMenu size={24} />
-            </Button>
-          </SheetTrigger>
-          <SheetContent className="w-64">
-            <SheetFooter>
-              <SheetClose asChild>
-                {session && pathname !== "/auth/signup" ? (
-                  <>
-                    <NavTab href="/profile">프로필</NavTab>
-                    <NavTab href="/studies">스터디 목록</NavTab>
-                    <NavTab href="/apply">지원하기!</NavTab>
-                  </>
-                ) : (
-                  <>
-                    {pathname === "/" && (
-                      <NavTab href="/auth/signin">로그인 하기</NavTab>
-                    )}
-                    {pathname !== "/auth/signin" &&
-                      pathname !== "/auth/signup" &&
-                      pathname !== "/auth/error" && <GoogleLoginButton />}
-                  </>
-                )}
-              </SheetClose>
-            </SheetFooter>
-          </SheetContent>
-        </Sheet>
+        {session && pathname !== "/auth/signup" ? (
+          <ul className="flex items-center space-x-6 max-md:hidden">
+            {pathname !== "/apply" && <NavTab href="/apply">지원하기</NavTab>}
+            <NavTab href="/studies">스터디 목록</NavTab>
+            <NavTab href="/profile">프로필</NavTab>
+          </ul>
+        ) : (
+          <ul className="flex items-center space-x-6 max-md:hidden">
+            {pathname === "/" && <NavTab href="#about_us">About us</NavTab>}
+            {pathname === "/" && (
+              <NavTab href="#howitworks">How it works</NavTab>
+            )}
+            {pathname === "/" && <NavTab href="#projects">Projects</NavTab>}
+            {pathname !== "/auth/signin" &&
+              pathname !== "/auth/signup" &&
+              pathname !== "/auth/error" && <GoogleLoginButton />}
+          </ul>
+        )}
+        {/* dropdown menu */}
+        <ul className="hidden max-md:flex items-center space-x-6">
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <FiMenu size={24} />
+              </Button>
+            </SheetTrigger>
+            <SheetContent className="w-64">
+              <SheetFooter>
+                <SheetClose asChild>
+                  {session && pathname !== "/auth/signup" ? (
+                    <>
+                      <NavTab href="/profile">프로필</NavTab>
+                      <NavTab href="/studies">스터디 목록</NavTab>
+                      <NavTab href="/apply">지원하기!</NavTab>
+                    </>
+                  ) : (
+                    <>
+                      {pathname === "/" && (
+                        <NavTab href="/auth/signin">로그인 하기</NavTab>
+                      )}
+                      {pathname !== "/auth/signin" &&
+                        pathname !== "/auth/signup" &&
+                        pathname !== "/auth/error" && <GoogleLoginButton />}
+                    </>
+                  )}
+                </SheetClose>
+              </SheetFooter>
+            </SheetContent>
+          </Sheet>
+        </ul>
       </nav>
     </header>
   );

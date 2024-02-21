@@ -17,7 +17,7 @@ const CheckBox = React.forwardRef<HTMLInputElement, CheckBoxProps>(
         >
           <input
             type="checkbox"
-            className="before:content[''] peer relative w-4 h-4 cursor-pointer appearance-none rounded-sm border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-gray-900 checked:bg-gray-900 checked:before:bg-gray-900 hover:before:opacity-10"
+            className="before:content[''] peer relative w-6 h-6 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-forif checked:bg-forif checked:before:bg-forif hover:before:opacity-10"
             id={id}
             checked={checked}
             onChange={({ target: { checked } }) => onChange(checked)}
@@ -39,7 +39,10 @@ const CheckBox = React.forwardRef<HTMLInputElement, CheckBoxProps>(
             </svg>
           </span>
         </label>
-        <label htmlFor={id} className="selcet-none cursor-pointer">
+        <label
+          htmlFor={id}
+          className="selcet-none cursor-pointer text-gray-600 text-sm"
+        >
           {label}
         </label>
       </div>

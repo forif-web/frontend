@@ -42,7 +42,7 @@ export default function HomePage() {
     <>
       <main className={`mb-8 min-h-full h-fit`}>
         <section className="flex flex-col items-center justify-center md:justify-end min-h-screen w-full pb-20">
-          <div className="flex md:flex-row flex-col w-10/12 max-w-8xl h-[calc(100%-60px)]">
+          <div className="flex md:flex-row flex-col justify-between w-10/12 max-w-8xl h-[calc(100%-60px)]">
             <div className="w-full flex flex-col gap-5">
               <h1 className="md:text-[80px] text-5xl font-bold leading-tight text-gray-900 uppercase">
                 <span className="text-blue-900">프로그래밍</span>을 향한

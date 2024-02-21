@@ -52,32 +52,38 @@ const applySchema = z.object({
 const mentorApplySchema = z.object({
   studyName: z
     .string()
-    .min(1, { message: "1순위 스터디는 반드시 작성해야 합니다." }),
+    .min(1, { message: "스터디 이름은 반드시 작성해야 합니다." }),
   explanation: z
     .string()
     .min(1, { message: "간단한 설명은 반드시 작성해야 합니다." }),
   tag: z.string().array(),
-  goal: z.string(),
-  date: z.string(),
-  startTime: z.object({
-    _d: z.string(),
+  goal: z.string().min(1, { message: "목표는 반드시 작성해야 합니다." }),
+  date: z.string().min(1, { message: "요일은 반드시 선택해야 합니다." }),
+  startTime: z
+    .object({
+      _d: z.string(),
+    })
+    .optional(),
+  endTime: z
+    .object({
+      _d: z.string(),
+    })
+    .optional(),
+  studyType: z.enum(["정규", "자율"]),
+  location: z.string().min(1, {
+    message:
+      "장소는 필수적으로 작성해야 합니다. 미정일시 '미정'이라고 작성해주세요.",
   }),
-  endTime: z.any(),
-  studyType: z.string(),
-  location: z.string(),
   //2nd page
-  level: z
-    .number()
-    .min(1, { message: "1부터 5사이의 숫자를 선택해주세요." })
-    .max(5, { message: "1부터 5사이의 숫자를 선택해주세요." }),
-  maximumUsers: z.number().min(1, { message: "반드시 작성해야 합니다." }),
-  weeklyPlan: z
-    .string()
-    .min(1, { message: "주차별 계획은 반드시 작성해야 합니다." }),
-  conditions: z
-    .string()
-    .min(1, { message: "이수 조건은 반드시 작성해야 합니다." }),
-  interview: z.boolean(),
+  level: z.string().min(1, { message: "난이도를 선택해주세요." }),
+  // maximumUsers: z.number().min(1, { message: "반드시 작성해야 합니다." }),
+  // weeklyPlan: z
+  //   .string()
+  //   .min(1, { message: "주차별 계획은 반드시 작성해야 합니다." }),
+  // conditions: z
+  //   .string()
+  //   .min(1, { message: "이수 조건은 반드시 작성해야 합니다." }),
+  // interview: z.boolean(),
 });
 
 const tags = Object.keys(langColorMap);

@@ -10,7 +10,7 @@ module.exports = {
   safelist: [
     {
       pattern:
-        /bg-(blue|green|orange|yellow|purple|red|emerald|cyan|violet|rose|gray|sky|lime)-(100|200|300|400|500)/,
+        /bg-(blue|green|orange|yellow|purple|red|emerald|cyan|violet|rose|gray|sky|lime|zinc|fuchsia|pink|stone|teal|amber)-(100|200|300|400|500)/,
       variants: ["hover", "focus"],
     },
   ],
@@ -32,7 +32,7 @@ module.exports = {
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
-        ring: "#0059E2",
+        ring: "hsl(var(--ring))",
         forif: "#0059E2",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

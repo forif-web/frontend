@@ -24,7 +24,7 @@ export default async function RootLayout({
       <head>
         <title>FORIF</title>
       </head>
-      <body className={cn("h-full scrollbar-hide", Pretendard.className)}>
+      <body className={cn("h-full scrollbar-none", Pretendard.className)}>
         <TimeWrapper>
           <Theme accentColor="iris" className="h-full">
             <SessionProvider session={session}>

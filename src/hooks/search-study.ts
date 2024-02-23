@@ -24,7 +24,7 @@ const useStudySearch = ({
         const filteredData = studyData.filter(
           (study) =>
             study.studyName.toLowerCase().includes(searchInput.toLowerCase()) ||
-            study.tags.some((tag) =>
+            Object.keys(study.tags).some((tag) =>
               tag.toLowerCase().includes(searchInput.toLowerCase())
             )
         );

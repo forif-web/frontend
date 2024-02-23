@@ -8,7 +8,14 @@ import Image from "next/image";
 import useSWR from "swr";
 import { StudyInterface } from "../types/study";
 const StudiesPage = () => {
-  const fetcher = (url: string) => axios.get(url, {}).then((res) => res.data);
+  const fetcher = (url: string) =>
+    axios
+      .get(url, {
+        headers: {
+          "Cache-Control": "no-store",
+        },
+      })
+      .then((res) => res.data);
   const { data, error, isLoading } = useSWR<StudyInterface[]>(
     "/api/study",
     fetcher

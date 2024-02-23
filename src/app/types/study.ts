@@ -1,6 +1,10 @@
+type TagType = {
+  [key: string]: string;
+};
+
 interface StudyInterface {
   studyId: number;
-  tags: string[];
+  tags: TagType;
   mentorId: number;
   studyName: string;
   mentorName: string;
@@ -17,11 +21,11 @@ interface DetailStudyInterface extends StudyInterface {
   goal: string;
   explanation: string;
   mentorEmail: string | null;
-  location: any;
-  maximumUsers: any;
-  reference: any;
-  weeklyPlan: any;
-  conditions: any;
+  location: string;
+  maximumUsers: number;
+  reference: string;
+  weeklyPlans: string[];
+  conditions: string;
 }
 
 export const langColorMap: Record<string, string> = {
@@ -33,6 +37,7 @@ export const langColorMap: Record<string, string> = {
   nextjs: "gray",
   java: "rose",
   algorithm: "gray",
+  typescript: "amber",
 };
 
 export type { DetailStudyInterface, StudyInterface };

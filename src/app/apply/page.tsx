@@ -287,7 +287,12 @@ export default function Apply() {
             id="term"
           />
           <div className="h-4" />
-          <Button type="submit" variant={"forif"} disabled={!term} size={"lg"}>
+          <Button
+            type="submit"
+            variant={"default"}
+            disabled={!term}
+            size={"lg"}
+          >
             제출하기
           </Button>
         </form>

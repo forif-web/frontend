@@ -3,9 +3,9 @@ import React from "react";
 function StudyPageLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="mb-8 min-h-full h-fit">
-      <div className="w-full h-64 object-cover bg-gradient-to-r from-cyan-400 to-forif object-cover" />
+      <div className="h-[60px]" />
       {/* w-10/12, md: w-full */}
-      <div className="flex flex-col items-center">{children}</div>
+      <div className="flex flex-col">{children}</div>
     </div>
   );
 }

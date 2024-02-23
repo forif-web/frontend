@@ -1,28 +1,29 @@
-import getToken from "@/hooks/api/getToken";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
+import { authOptions } from "../auth/[...nextauth]/options";
 export async function POST(req: NextRequest, res: NextResponse) {
   const URL = `${process.env.API_BASEURL}:${process.env.API_BASEPORT}`;
-  const idToken = await getToken({ req });
+  const session = await getServerSession(authOptions);
   const payload = await req.json();
+  console.log(session?.user.token.id_token);
 
   const response: Response = await fetch(`${URL}/apply`, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${idToken}`,
+      Authorization: `Bearer ${session?.user.token}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify(payload),
-    cache: "no-cache",
   });
 
+  const data = await response.json();
   if (response.ok) {
-    const data = await response.json();
-    console.log(data);
-
     return NextResponse.json(data);
   } else {
+    console.error(data);
+
     return NextResponse.json({
-      message: "응답이 올바르지 않습니다.",
+      message: data.message,
       status: 404,
     });
   }

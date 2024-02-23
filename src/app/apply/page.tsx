@@ -64,8 +64,13 @@ export default function Apply() {
           Authorization: `Bearer ${session?.user.token.id_token}`,
         },
       });
-      ToastEmitter({ type: "success", text: "스터디 신청에 성공했습니다." });
-      router.push("/profile");
+      if (response.data.status !== 200) {
+        ToastEmitter({ type: "error", text: response.data.message });
+      } else {
+        console.log(response.data);
+
+        ToastEmitter({ type: "success", text: "스터디 신청에 성공했습니다." });
+      }
     } catch (err) {
       ToastEmitter({ type: "error", text: "신청 실패!" });
     }

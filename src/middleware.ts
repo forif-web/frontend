@@ -10,7 +10,7 @@ function withAuth(req: NextRequest, token: JWT | null) {
   // Continue to the next step in the middleware chain
   return null;
 }
-function withOutAuth(req: NextRequest, token: JWT | null) {
+function withOutAuth(req: NextRequest, token: JWT | string | null) {
   if (token) {
     return NextResponse.redirect(new URL("/profile", req.url));
   }
@@ -20,7 +20,7 @@ function withOutAuth(req: NextRequest, token: JWT | null) {
 export async function middleware(req: NextRequest) {
   // 서버사이드에서 로그인 유무를 판단할 수 있는 next-auth 제공 함수
   // 토큰 값이 falsy 하지 않으면 로그인 o
-  const token = await getToken({ req });
+  const idToken = await getToken({ req });
 
   // 사용자가 요청하는 페이지 pathname
   const { pathname } = req.nextUrl;
@@ -29,8 +29,8 @@ export async function middleware(req: NextRequest) {
   const isWithOutAuth = withOutAuthList.includes(pathname);
 
   if (isWithAuth)
-    return withAuth(req, token); // 로그인 여부에 따라 redirect 하는 함수
-  else if (isWithOutAuth) return withOutAuth(req, token); // 로그인 여부에 따라 redirect 하는 함수
+    return withAuth(req, idToken); // 로그인 여부에 따라 redirect 하는 함수
+  else if (isWithOutAuth) return withOutAuth(req, idToken); // 로그인 여부에 따라 redirect 하는 함수
 }
 
 // 미들웨어가 실행될 특정 pathname을 지정하면, 해당 pathname에서만 실행 가능

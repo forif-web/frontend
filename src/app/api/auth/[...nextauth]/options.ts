@@ -1,4 +1,9 @@
-import { NextAuthOptions } from "next-auth";
+import {
+  GetServerSidePropsContext,
+  NextApiRequest,
+  NextApiResponse,
+} from "next";
+import { NextAuthOptions, getServerSession } from "next-auth";
 import Google from "next-auth/providers/google";
 import Naver from "next-auth/providers/naver";
 import { cookies } from "next/headers";
@@ -91,5 +96,12 @@ const authOptions = {
     error: "/auth/error",
   },
 } satisfies NextAuthOptions;
-
+export function auth(
+  ...args:
+    | [GetServerSidePropsContext["req"], GetServerSidePropsContext["res"]]
+    | [NextApiRequest, NextApiResponse]
+    | []
+) {
+  return getServerSession(...args, authOptions);
+}
 export { authOptions };

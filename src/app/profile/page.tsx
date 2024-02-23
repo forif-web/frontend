@@ -3,13 +3,11 @@ import SpinningCircle from "@/components/common/skeleton/spinning-circle";
 import StudyCard from "@/components/common/study-card";
 import Summary from "@/components/pages/profile/summary";
 import { Button } from "@/components/ui/button";
-import { CheckBox } from "@/components/ui/checkbox";
-import MyDialog from "@/components/ui/dialog";
 import CertificateCardContainer from "@/containers/profile/certificate-card-container";
-import { Table, Text } from "@radix-ui/themes";
+import { Text } from "@radix-ui/themes";
 import axios from "axios";
 import { signOut } from "next-auth/react";
-import { useState } from "react";
+import Link from "next/link";
 import useSWR from "swr";
 import { StudyInterface } from "../types/study";
 
@@ -36,8 +34,6 @@ export type studyResponseType = {
 };
 
 export default function ProfilePage() {
-  const [isChecked, setIsChecked] = useState(false);
-
   const fetcher = (url: string) => axios.get(url).then((res) => res.data);
   const { data, error, isLoading } = useSWR<getUserResponseType>(
     "/api/auth/getuser",
@@ -120,45 +116,9 @@ export default function ProfilePage() {
           계정
         </Text>
         <div className="flex flex-row gap-3 justify-start">
-          <MyDialog
-            label="스터디 관리"
-            title="스터디 관리"
-            description="스터디 정보 수정, 부원 수락 등의 관리를 할 수 있습니다."
-          >
-            <fieldset className="w-full">
-              <Table.Root size={"3"}>
-                <Table.Header>
-                  <Table.Row>
-                    <Table.ColumnHeaderCell justify={"center"}>
-                      부원명
-                    </Table.ColumnHeaderCell>
-                    <Table.ColumnHeaderCell justify={"center"}>
-                      학과
-                    </Table.ColumnHeaderCell>
-                    <Table.ColumnHeaderCell justify={"center"}>
-                      지원서
-                    </Table.ColumnHeaderCell>
-                  </Table.Row>
-                </Table.Header>
-
-                <Table.Body>
-                  <Table.Row>
-                    <Table.ColumnHeaderCell justify={"center"}>
-                      <CheckBox
-                        checked={isChecked}
-                        onChange={setIsChecked}
-                        id="select"
-                        label=""
-                      />
-                    </Table.ColumnHeaderCell>
-                    <Table.Cell justify={"center"}>표준성</Table.Cell>
-                    <Table.Cell justify={"center"}>정보시스템학과</Table.Cell>
-                    <Table.Cell justify={"center"}>Developer</Table.Cell>
-                  </Table.Row>
-                </Table.Body>
-              </Table.Root>
-            </fieldset>
-          </MyDialog>
+          <Button variant={"default"} className="w-32">
+            <Link href={"/setting"}>정보 변경</Link>
+          </Button>
           <Button
             variant={"destructive"}
             onClick={() => signOut({})}

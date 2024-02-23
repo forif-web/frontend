@@ -7,7 +7,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     `${URL}/studies/all?year=${year}&semester=${semester}`,
     {
       method: "GET",
-      cache: "no-cache",
+      cache: "no-store",
     }
   );
 

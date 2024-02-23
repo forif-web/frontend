@@ -1,4 +1,4 @@
-type TagType = {
+export type TagType = {
   [key: string]: string;
 };
 

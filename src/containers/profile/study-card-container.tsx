@@ -1,4 +1,4 @@
-import { StudyInterface } from "@/app/types/study";
+import { StudyInterface, TagType } from "@/app/types/study";
 import StudyCard from "@/components/common/study-card";
 
 function StudyCardContainer({
@@ -7,6 +7,7 @@ function StudyCardContainer({
   studyValue: StudyInterface[] | undefined;
 }) {
   if (!studyValue) {
+    const defaultTags: TagType = { ERROR: "black" };
     return (
       <StudyCard
         studyId={-1}
@@ -21,7 +22,7 @@ function StudyCardContainer({
         level={5}
         mentorId={-1}
         studyType={"자율"}
-        tags={["ERROR"]}
+        tags={defaultTags}
       />
     );
   }

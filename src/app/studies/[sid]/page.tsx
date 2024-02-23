@@ -143,7 +143,9 @@ function Page({ params }: { params: { sid: string } }) {
                 {data.tags &&
                   Object.keys(data.tags).map((tag, idx) => (
                     <Badge
-                      className={`mb-0.5 bg-${data.tags[tag]}-500 hover:bg-${data.tags[tag]}-400`}
+                      className={`mb-0.5 bg-${
+                        data.tags[tag] || "black"
+                      }-500 hover:bg-${data.tags[tag]}-400`}
                       key={idx}
                     >
                       {tag.toUpperCase()}
@@ -213,13 +215,14 @@ function Page({ params }: { params: { sid: string } }) {
             <Text size={"7"}>
               <Strong>
                 [
-                {Object.keys(data.tags).map((val, idx, arr) => {
-                  if (idx + 1 === arr.length) {
-                    return <span>{val.toUpperCase()}</span>;
-                  } else {
-                    return <span>{val.toUpperCase()},</span>;
-                  }
-                })}
+                {data.tags &&
+                  Object.keys(data.tags).map((val, idx, arr) => {
+                    if (idx + 1 === arr.length) {
+                      return <span>{val.toUpperCase()}</span>;
+                    } else {
+                      return <span>{val.toUpperCase()},</span>;
+                    }
+                  })}
                 ] 강의입니다.
               </Strong>
             </Text>

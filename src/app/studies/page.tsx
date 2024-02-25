@@ -60,7 +60,7 @@ const StudiesPage = () => {
           </div>
           <div className="mb-4">
             <span className="text-base text-gray-500">
-              {data.length}개의 스터디가 개설되어있습니다.
+              {data.length - 1}개의 스터디가 개설되어있습니다.
             </span>
           </div>
           <div className="relative flex flex-row mb-8 items-center justify-start">

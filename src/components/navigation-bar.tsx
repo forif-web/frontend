@@ -58,15 +58,14 @@ export function NavigationBar() {
           ) : (
             <NavTab href="/profile">PROFILE</NavTab>
           )}
-          {pathname === "/studies" ? (
-            <button className="rounded-3xl px-6 py-2 h-12 text-base bg-gray-900 text-white">
-              <Link href={`/apply`}>지원하기</Link>
-            </button>
+          {data && data.userId && !isLoading && isLoading ? (
+            <NavTab href="/">로딩 중....</NavTab>
           ) : (
-            <button className="rounded-3xl px-6 py-2 h-12 text-base bg-gray-900 text-white">
-              <Link href={`/studies`}>지원하기</Link>
-            </button>
+            <NavTab href="/studies">STUDIES</NavTab>
           )}
+          <button className="rounded-3xl px-6 py-2 h-12 text-base bg-gray-900 text-white">
+            <Link href={`/apply`}>지원하기</Link>
+          </button>
         </div>
 
         {/* dropdown menu */}

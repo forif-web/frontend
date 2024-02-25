@@ -41,7 +41,7 @@ const applySchema = z.object({
   career: z
     .string()
     .min(1, { message: "개발 경험은 반드시 작성해야 합니다." })
-    .max(50, { message: "50자 이하로 작성해주세요." }),
+    .max(50, { message: "500자 이하로 작성해주세요." }),
 });
 
 const mentorApplySchema = z.object({

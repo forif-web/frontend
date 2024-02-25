@@ -20,21 +20,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { getUserPhotoURI } from "@/hooks/getCloudinaryURI";
 import { HYU_DEPARTMENTS, formSchema } from "@/lib/default_form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { FiUpload } from "react-icons/fi";
 import z from "zod";
 
 export default function MyInfoForm() {
+  const { data: session } = useSession();
   const [profileImg, setProfileImg] = useState<File | null>(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
-      email: "",
-      userId: "",
+      userName: "",
       department: "",
       profileImage: "",
     },
@@ -45,7 +46,22 @@ export default function MyInfoForm() {
     setProfileImg(selectedFile || null);
   };
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    console.log(data);
+
+    if (profileImg) {
+      const imageURL = await getUserPhotoURI(profileImg, session?.user.email!);
+      console.log(imageURL);
+
+      //
+      const formData = new FormData();
+      formData.append("image", imageURL);
+      formData.append("userName", data.userName);
+      formData.append("department", data.department);
+
+      const res = await axios.patch("/api/auth/setuser", formData);
+      console.log(res);
+    }
     console.log(data);
   }
 
@@ -59,21 +75,10 @@ export default function MyInfoForm() {
             <FormItem>
               <FormLabel>프로필 이미지</FormLabel>
               <FormDescription>jpg, png 이미지만 가능합니다</FormDescription>
-              <div className="flex items-end gap-2">
-                <img
-                  src={field.value || "https://via.placeholder.com/150"}
-                  className="w-24 h-24 rounded-xl mt-2"
-                  alt="profile"
-                />
-                <Button variant="outline" size="icon" type="button">
-                  <FiUpload size={16} />
-                </Button>
-              </div>
               <FormControl>
                 <Input
                   type="file"
                   accept="image/png, image/jpeg, image/jpg"
-                  className="hidden"
                   onChange={onChange}
                 />
               </FormControl>
@@ -82,42 +87,13 @@ export default function MyInfoForm() {
           )}
         />
         <FormField
-          name="username"
+          name="userName"
           control={form.control}
           render={({ field }) => (
             <FormItem>
               <FormLabel>이름</FormLabel>
-              <FormDescription>이름을 입력해주세요.</FormDescription>
               <FormControl>
-                <Input placeholder="이름" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          name="email"
-          control={form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>이메일</FormLabel>
-              <FormDescription>이메일을 입력해주세요.</FormDescription>
-              <FormControl>
-                <Input placeholder="이메일" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          name="userId"
-          control={form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>학번</FormLabel>
-              <FormDescription>학번을 입력해주세요.</FormDescription>
-              <FormControl>
-                <Input placeholder="학번" {...field} />
+                <Input placeholder="" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -129,8 +105,7 @@ export default function MyInfoForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>학과</FormLabel>
-              <FormDescription>학과를 선택해주세요.</FormDescription>
-              <Select>
+              <Select onValueChange={field.onChange}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="학과를 선택해주세요." />

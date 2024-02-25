@@ -1,5 +1,6 @@
 "use client";
 import { DetailStudyInterface } from "@/app/types/study";
+import ImageWithFallback from "@/components/common/ImageWithFallBack";
 import SpinningCircle from "@/components/common/skeleton/spinning-circle";
 import { Badge } from "@/components/ui/badge";
 import HoverCard from "@/components/ui/hover-card/hover-card";
@@ -123,14 +124,13 @@ function Page({ params }: { params: { sid: string } }) {
       }
     }
   }
-  console.log(data.reference);
 
   return (
     <>
       <section className="w-full md:bg-[#2d2f31] md:py-8 mb-8">
         <div className="md:max-w-6xl mx-auto my-0 flex md:flex-row flex-col items-center md:justify-between">
-          <Image
-            src={"/icons/hforif.png"}
+          <ImageWithFallback
+            src={data.image}
             width={64}
             height={64}
             className="object-contain aspect-video border-white bg-gray-400 w-full md:hidden block"
@@ -294,7 +294,7 @@ function Page({ params }: { params: { sid: string } }) {
             <Text size={"5"} weight={"bold"}>
               참고자료
             </Text>
-            {data.reference}
+            {decodeURI(data.reference)}
           </div>
         </div>
         <div className="w-fit">

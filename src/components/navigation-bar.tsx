@@ -24,8 +24,13 @@ export function NavigationBar() {
         scrollY !== 0 && "border-b border-gray-200"
       }`}
     >
-      <nav className="flex items-center justify-between m-auto w-full h-[60px] md:px-8 px-4 max-w-[1240px] relative">
-        <Link href="/">
+      <nav className="flex items-center md:justify-between justify-end m-auto w-full h-[60px] md:px-8 px-4 max-w-[1240px] relative">
+        <ul className="flex items-center space-x-6 max-md:hidden">
+          {pathname === "/" && <NavTab href="#about_us">About us</NavTab>}
+          {pathname === "/" && <NavTab href="#howitworks">Process</NavTab>}
+          {pathname === "/" && <NavTab href="#projects">Projects</NavTab>}
+        </ul>
+        <Link href="/" className="absolute left-1/2 -translate-x-1/2">
           <div className="flex items-center">
             <Image
               src={"/icons/logo.svg"}
@@ -36,25 +41,25 @@ export function NavigationBar() {
             />
           </div>
         </Link>
+        <div
+          className={`flex-row items-center gap-4 pr-3 hidden ${
+            pathname === "/apply" ? "hidden" : "md:flex"
+          }`}
+        >
+          {pathname === "/studies" ? (
+            <button className="rounded-3xl px-6 py-2 h-12 text-base bg-gray-900 text-white">
+              <Link href={`/apply`}>지원하기</Link>
+            </button>
+          ) : (
+            <button className="rounded-3xl px-6 py-2 h-12 text-base bg-gray-900 text-white">
+              <Link href={`/studies`}>지원하기</Link>
+            </button>
+          )}
+          {session && session.user.token && (
+            <NavTab href="/profile">PROFILE</NavTab>
+          )}
+        </div>
 
-        {session && pathname !== "/auth/signup" ? (
-          <ul className="flex items-center space-x-6 max-md:hidden">
-            {pathname !== "/apply" && <NavTab href="/apply">지원하기</NavTab>}
-            <NavTab href="/studies">스터디 목록</NavTab>
-            <NavTab href="/profile">프로필</NavTab>
-          </ul>
-        ) : (
-          <ul className="flex items-center space-x-6 max-md:hidden">
-            {pathname === "/" && <NavTab href="#about_us">About us</NavTab>}
-            {pathname === "/" && (
-              <NavTab href="#howitworks">How it works</NavTab>
-            )}
-            {pathname === "/" && <NavTab href="#projects">Projects</NavTab>}
-            {pathname !== "/auth/signin" &&
-              pathname !== "/auth/signup" &&
-              pathname !== "/auth/error" && <GoogleLoginButton />}
-          </ul>
-        )}
         {/* dropdown menu */}
         <ul className="hidden max-md:flex items-center space-x-6">
           <Sheet>

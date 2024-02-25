@@ -1,26 +1,31 @@
-import { userResponseType } from "@/app/types/user";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import { authOptions } from "../[...nextauth]/options";
+import { authOptions } from "../../auth/[...nextauth]/options";
 export async function GET(req: NextRequest, res: NextResponse) {
   const URL = `${process.env.API_BASEURL}:${process.env.API_BASEPORT}`;
   const session = await getServerSession(authOptions);
-  if (session) {
-    const response: Response = await fetch(`${URL}/user`, {
+
+  if (session && session.user.token) {
+    const response: Response = await fetch(`${URL}/apply/user`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${session?.user.token.id_token}`,
+        "Cache-Control": "no-store",
       },
-      cache: "no-cache",
     });
-
-    const data: userResponseType = await response.json();
-
-    return NextResponse.json(data);
+    const data = await response.json();
+    if (response.ok) {
+      return NextResponse.json(data);
+    } else {
+      return NextResponse.json({
+        message: data.message,
+        status: 404,
+      });
+    }
   } else {
     return NextResponse.json({
-      message: "로그인하지 않았거나 토큰이 존재하지 않습니다.",
-      status: 405,
+      message: "NO TOKEN",
+      status: 500,
     });
   }
 }

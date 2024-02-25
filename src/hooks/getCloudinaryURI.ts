@@ -1,3 +1,4 @@
+"use client";
 import { CloudinaryRes } from "@/app/types/cloudinary";
 import axios from "axios";
 /**
@@ -16,8 +17,8 @@ async function getUserPhotoURI(profileImg: File, studentId: string) {
       formData,
       {
         params: {
-          upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET,
-          api_key: process.env.CLOUDINARY_API_KEY,
+          upload_preset: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
+          api_key: process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET,
           folder: "profiles",
           public_id: studentId,
         },

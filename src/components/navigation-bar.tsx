@@ -1,11 +1,14 @@
 "use client";
+import { userResponseType } from "@/app/types/user";
 import GetScrollY from "@/hooks/getScrollY";
-import { signIn, useSession } from "next-auth/react";
+import axios from "axios";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect } from "react";
 import { FiMenu } from "react-icons/fi";
+import useSWR from "swr";
 import { Button } from "./ui/button";
 import {
   Sheet,
@@ -15,8 +18,12 @@ import {
   SheetTrigger,
 } from "./ui/sheet";
 export function NavigationBar() {
+  const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+  const { data, error, isLoading } = useSWR<userResponseType>(
+    "/api/auth/getuser",
+    fetcher
+  );
   const scrollY = GetScrollY();
-  const { data: session } = useSession();
   const pathname = usePathname();
   return (
     <header
@@ -46,6 +53,11 @@ export function NavigationBar() {
             pathname === "/apply" ? "hidden" : "md:flex"
           }`}
         >
+          {data && data.userId && !isLoading && isLoading ? (
+            <NavTab href="/">로딩 중....</NavTab>
+          ) : (
+            <NavTab href="/profile">PROFILE</NavTab>
+          )}
           {pathname === "/studies" ? (
             <button className="rounded-3xl px-6 py-2 h-12 text-base bg-gray-900 text-white">
               <Link href={`/apply`}>지원하기</Link>
@@ -54,9 +66,6 @@ export function NavigationBar() {
             <button className="rounded-3xl px-6 py-2 h-12 text-base bg-gray-900 text-white">
               <Link href={`/studies`}>지원하기</Link>
             </button>
-          )}
-          {session && session.user.token && (
-            <NavTab href="/profile">PROFILE</NavTab>
           )}
         </div>
 
@@ -71,7 +80,7 @@ export function NavigationBar() {
             <SheetContent className="w-64">
               <SheetFooter>
                 <SheetClose asChild>
-                  {session && pathname !== "/auth/signup" ? (
+                  {data && data.userId && pathname !== "/auth/signup" ? (
                     <>
                       <NavTab href="/profile">프로필</NavTab>
                       <NavTab href="/studies">스터디 목록</NavTab>

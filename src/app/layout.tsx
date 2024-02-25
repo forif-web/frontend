@@ -2,7 +2,6 @@ import { Footer } from "@/components/footer";
 import { NavigationBar } from "@/components/navigation-bar";
 import SessionProvider from "@/components/sessionProvider";
 import MyToastContainer from "@/components/ui/toast";
-import TimeWrapper from "@/containers/time-wrapper";
 import { cn } from "@/lib/utils";
 import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
@@ -25,20 +24,18 @@ export default async function RootLayout({
         <title>FORIF</title>
       </head>
       <body className={cn("h-full scrollbar-none", Pretendard.className)}>
-        <TimeWrapper>
-          <Theme accentColor="indigo" className="h-full">
-            <SessionProvider session={session}>
-              <NavigationBar />
-              {children}
-              <Footer />
-              <MyToastContainer
-                autoClose={2000}
-                position="bottom-left"
-                theme="dark"
-              />
-            </SessionProvider>
-          </Theme>
-        </TimeWrapper>
+        <Theme accentColor="indigo" className="h-full">
+          <SessionProvider session={session}>
+            <NavigationBar />
+            {children}
+            <Footer />
+            <MyToastContainer
+              autoClose={2000}
+              position="bottom-left"
+              theme="dark"
+            />
+          </SessionProvider>
+        </Theme>
       </body>
     </html>
   );

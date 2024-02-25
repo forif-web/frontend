@@ -290,7 +290,7 @@ export default function Apply() {
                 </FormDescription>
                 <FormControl>
                   <TextArea
-                    placeholder="50자 이하로 작성해주세요."
+                    placeholder="500자 이하로 작성해주세요."
                     className="focus:ring-ring rounded-xl"
                     {...field}
                   />

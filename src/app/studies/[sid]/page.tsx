@@ -1,6 +1,5 @@
 "use client";
 import { DetailStudyInterface } from "@/app/types/study";
-import ImageWithFallback from "@/components/common/ImageWithFallBack";
 import SpinningCircle from "@/components/common/skeleton/spinning-circle";
 import { Badge } from "@/components/ui/badge";
 import HoverCard from "@/components/ui/hover-card/hover-card";
@@ -124,16 +123,17 @@ function Page({ params }: { params: { sid: string } }) {
       }
     }
   }
+  console.log(data.image);
 
   return (
     <>
       <section className="w-full md:bg-[#2d2f31] md:py-8 mb-8">
         <div className="md:max-w-6xl mx-auto my-0 flex md:flex-row flex-col items-center md:justify-between">
-          <ImageWithFallback
+          <Image
             src={data.image}
-            width={64}
-            height={64}
-            className="object-contain aspect-video border-white bg-gray-400 w-full md:hidden block"
+            width={1000}
+            height={1000}
+            className="object-cover border-white bg-gray-400 w-full md:hidden block"
             alt="profile"
           />
           <div className="flex flex-col gap-4 mx-6 md:w-8/12 mt-6">
@@ -200,10 +200,10 @@ function Page({ params }: { params: { sid: string } }) {
             </div>
           </div>
           <Image
-            src={"/icons/hforif.png"}
-            width={64}
-            height={64}
-            className="rounded-xl object-contain border-4 border-white w-3/12 md:block hidden"
+            src={data.image}
+            width={1000}
+            height={1000}
+            className="rounded-xl object-contain w-3/12 md:block hidden"
             alt="profile"
           />
         </div>
@@ -298,7 +298,7 @@ function Page({ params }: { params: { sid: string } }) {
           </div>
         </div>
         <div className="w-fit">
-          <div className="max-w-4xl my-0 w-fit px-4">
+          <div className="max-w-4xl my-0 w-fit px-4 mx-auto">
             <Text as="div" size="6" weight="bold" className="md:mb-4">
               주차별 계획
             </Text>

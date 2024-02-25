@@ -124,7 +124,6 @@ function Page({ params }: { params: { sid: string } }) {
       }
     }
   }
-  console.log(data.reference);
 
   return (
     <>

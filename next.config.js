@@ -7,6 +7,11 @@ const nextConfig = {
         destination: "/setting/my-info",
         permanent: true,
       },
+      {
+        source: "/profile",
+        destination: "/profile/course",
+        permanent: true,
+      },
     ];
   },
   images: {

@@ -59,6 +59,9 @@ dependencies:
   '@radix-ui/react-slot':
     specifier: ^1.0.2
     version: 1.0.2(@types/react@18.0.0)(react@18.0.0)
+  '@radix-ui/react-tabs':
+    specifier: ^1.0.4
+    version: 1.0.4(@types/react-dom@18.0.0)(@types/react@18.0.0)(react-dom@18.0.0)(react@18.0.0)
   '@radix-ui/react-toast':
     specifier: ^1.1.5
     version: 1.1.5(@types/react-dom@18.0.0)(@types/react@18.0.0)(react-dom@18.0.0)(react@18.0.0)
@@ -1332,7 +1335,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.23.4
+      '@babel/runtime': 7.23.9
       '@types/react': 18.0.0
       react: 18.0.0
     dev: false
@@ -1498,7 +1501,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.23.4
+      '@babel/runtime': 7.23.9
       '@radix-ui/react-use-layout-effect': 1.0.1(@types/react@18.0.0)(react@18.0.0)
       '@types/react': 18.0.0
       react: 18.0.0
@@ -1928,7 +1931,7 @@ packages:
       '@types/react-dom':
         optional: true
     dependencies:
-      '@babel/runtime': 7.23.4
+      '@babel/runtime': 7.23.9
       '@radix-ui/primitive': 1.0.1
       '@radix-ui/react-context': 1.0.1(@types/react@18.0.0)(react@18.0.0)
       '@radix-ui/react-direction': 1.0.1(@types/react@18.0.0)(react@18.0.0)

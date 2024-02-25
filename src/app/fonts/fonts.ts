@@ -1,4 +1,4 @@
-import { Abel, Source_Code_Pro } from "next/font/google";
+import { Abel, Anton, Source_Code_Pro } from "next/font/google";
 import localFont from "next/font/local";
 
 export const Pretendard = localFont({
@@ -10,5 +10,9 @@ export const sourceCodePro = Source_Code_Pro({
   weight: "variable",
   subsets: ["latin", "latin-ext"],
 });
+export const anton = Anton({
+  weight: ["400"],
+  subsets: ["latin", "latin-ext"],
+});
 
-export default { Pretendard, abel, sourceCodePro };
+export default { Pretendard, abel, sourceCodePro, anton };

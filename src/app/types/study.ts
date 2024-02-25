@@ -15,6 +15,7 @@ interface StudyInterface {
   interview: boolean;
   image: string;
   studyType: "자율" | "정규";
+  explanation?: string;
 }
 
 interface DetailStudyInterface extends StudyInterface {
@@ -38,6 +39,12 @@ export const langColorMap: Record<string, string> = {
   java: "rose",
   algorithm: "gray",
   typescript: "amber",
+};
+
+export type studyResponseType = {
+  timestamp: string;
+  status: number;
+  message: string;
 };
 
 export type { DetailStudyInterface, StudyInterface };

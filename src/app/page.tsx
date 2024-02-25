@@ -1,29 +1,14 @@
 "use client";
 import Milestone from "@/components/pages/home/milestone";
 import milestone from "@/components/pages/home/milestoneData";
-import { Button } from "@/components/ui/button";
 import Carousel from "@/containers/main/carousel";
 import ProcessCards from "@/containers/main/process-cards";
 import handleObserver from "@/hooks/intersectionObserver";
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import CountUp from "react-countup";
-
-const draw = {
-  hidden: { pathLength: 0, opacity: 0 },
-  visible: (i: number) => {
-    const delay = 1 + i * 0.5;
-    return {
-      pathLength: 1,
-      opacity: 1,
-      transition: {
-        pathLength: { delay, type: "spring", duration: 2, bounce: 0 },
-        opacity: { delay, duration: 0.01 },
-      },
-    };
-  },
-};
+import { MdOutlineArrowOutward } from "react-icons/md";
+import { Pretendard, sourceCodePro } from "./fonts/fonts";
 
 export default function HomePage() {
   //CountUp 애니메이션
@@ -41,118 +26,98 @@ export default function HomePage() {
   return (
     <>
       <main className={`mb-8 min-h-full h-fit`}>
-        <section className="flex flex-col items-center justify-center md:justify-end min-h-screen w-full pb-20">
-          <div className="flex md:flex-row flex-col justify-between w-10/12 max-w-8xl h-[calc(100%-60px)]">
+        <section className="flex flex-col items-center justify-center min-h-screen w-full pt-20">
+          <div className="flex md:flex-row flex-col px-11 items-center max-w-7xl h-[calc(100%-60px)] relative">
             <div className="w-full flex flex-col gap-5">
-              <h1 className="md:text-[80px] text-5xl font-bold leading-tight text-gray-900 uppercase">
-                <span className="text-blue-900">프로그래밍</span>을 향한
-                <br />
-                열정만 있다면
-              </h1>
-              <div>
-                <p className="text-xl">2024.02.26 - 2024.03.06</p>
-              </div>
-              <div>
-                <Button variant={"default"} size={"xl"}>
-                  <Link href={"/studies"}>APPLY NOW</Link>
-                </Button>
-              </div>
-            </div>
-            <div className="hidden md:block framer">
-              <motion.svg
-                width="360"
-                height="360"
-                viewBox="0 0 500 360"
-                initial="hidden"
-                animate="visible"
-                style={{
-                  strokeWidth: "10px",
-                  strokeLinecap: "round",
-                  fill: "transparent",
-                }}
+              <div
+                className={`${sourceCodePro.className} md:text-8xl text-6xl font-bold leading-tight text-gray-900 uppercase`}
               >
-                <motion.rect
-                  width="360"
-                  height="280"
-                  x="40"
-                  y="40"
-                  rx="20"
-                  stroke="#000000"
-                  variants={draw}
-                  custom={0}
-                  style={{
-                    strokeWidth: "10px",
-                    strokeLinecap: "round",
-                    fill: "transparent",
-                  }}
-                />
-                <motion.line
-                  x1="160"
-                  y1="350"
-                  x2="270"
-                  y2="350"
-                  strokeWidth={10}
-                  stroke="#000000"
-                  variants={draw}
-                  custom={1}
-                  style={{
-                    strokeWidth: "10px",
-                    strokeLinecap: "round",
-                    fill: "transparent",
-                  }}
-                />
-                <motion.line
-                  x1="100"
-                  y1="380"
-                  x2="340"
-                  y2="380"
-                  strokeWidth={10}
-                  stroke="#000000"
-                  variants={draw}
-                  custom={2}
-                  style={{
-                    strokeWidth: "16",
-                    strokeLinecap: "round",
-                    fill: "transparent",
-                  }}
-                />
-                <motion.line
-                  x1="120"
-                  y1="80"
-                  x2="80"
-                  y2="120"
-                  strokeWidth={10}
-                  stroke="#000000"
-                  variants={draw}
-                  custom={2}
-                  style={{
-                    strokeWidth: "10px",
-                    strokeLinecap: "round",
-                    fill: "transparent",
-                  }}
-                />
-                <motion.line
-                  x1="160"
-                  y1="70"
-                  x2="70"
-                  y2="160"
-                  strokeWidth={10}
-                  stroke="#000000"
-                  variants={draw}
-                  custom={2}
-                  style={{
-                    strokeWidth: "10px",
-                    strokeLinecap: "round",
-                    fill: "transparent",
-                  }}
-                />
-              </motion.svg>
+                <div className="flex flex-row justify-between items-center">
+                  <h1 className="pr-8">UPGRADE</h1>
+                  <p
+                    className={`${Pretendard.className} text-base text-gray-500 font-medium md:block hidden`}
+                  >
+                    FORIF는 전공과 상관없이 프로그래밍을 배운다는 목표를 갖고
+                    2015년에 창설된 한양대학교의 웹/앱 개발 중앙동아리입니다.
+                    FORIF와 함께 프로그래밍을 향한 열정을 불태워보자구요!
+                  </p>
+                </div>
+                <div className="flex flex-row justify-between items-center">
+                  <div className="border-2 border-gray-900 w-full md:block hidden" />
+                  <h1 className="md:pl-8 md:text-right min-w-fit min-h-fit md:whitespace-nowrap">
+                    YOUR PASSION
+                  </h1>
+                </div>
+              </div>
+              <div>
+                <p className="text-2xl">2024.02.26 - 2024.03.06</p>
+              </div>
+              <div className="md:hidden flex flex-row items-center gap-4">
+                <h1>지원하기</h1>
+                <button className="rounded-full bg-black text-white w-12 h-12">
+                  <Link
+                    href={"/studies"}
+                    className="flex items-center justify-center"
+                  >
+                    <MdOutlineArrowOutward size={24} />
+                  </Link>
+                </button>
+              </div>
             </div>
           </div>
         </section>
         <div id="about_us"></div>
+        {/* <div
+          id="main-bg-img"
+          className={`md:max-w-[1236px] w-full mx-auto aspect-video md:rounded-2xl flex items-center justify-center`}
+        >
+          <h1 className="text-gray-50 md:text-5xl text-2xl font-bold">
+            지식의 선순환
+          </h1>
+        </div> */}
+        {/* <section className="flex flex-col items-center w-full">
+          <div className="flex flex-col px-11 w-full max-w-7xl gap-5">
+            <h1
+              className={`${sourceCodePro.className} md:text-6xl text-3xl font-bold md:w-2/3 mb-4`}
+            >
+              FIND YOUR FAVORITE STUDY
+            </h1>
+            <Swiper spaceBetween={100} slidesPerView={3}>
+              {data?.map((study) => (
+                <SwiperSlide>
+                  <Card
+                    size="4"
+                    className="md:min-w-[360px] w-full max-h-[200px] h-full"
+                  >
+                    <div className="flex flex-col justify-between h-full">
+                      <div className="flex flex-col gap-4">
+                        <h1 className="text-xl font-bold whitespace-normal">
+                          <Strong>{study.studyName}</Strong>
+                        </h1>
+                        <p>
+                          {study.date} {study.startTime} - {study.endTime}
+                        </p>
+                      </div>
+                      <div className="flex flex-row items-center justify-between">
+                        <p className="text-xl font-medium text-gray-600">
+                          {study.mentorName} 멘토
+                        </p>
+                        <div className="flex flex-row items-center gap-2">
+                          <FaStar size={20} />
+                          <p className="text-xl font-medium text-gray-600">
+                            {study.level}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </section> */}
         <section className="mt-20 flex flex-col items-center min-h-fit w-full relative">
-          <div className="flex md:flex-row flex-col w-10/12 max-w-8xl h-[calc(100%-60px)]">
+          <div className="flex md:flex-row flex-col w-10/12 px-11 max-w-7xl h-[calc(100%-60px)]">
             <div className="w-full">
               <h1 className="md:text-7xl text-3xl font-bold text-black mb-4">
                 About us
@@ -165,7 +130,7 @@ export default function HomePage() {
           id="scale"
           className="md:mt-52 mt-12 flex flex-col gap-32 items-center h-fit"
         >
-          <div className="flex flex-col justify-start w-10/12 max-w-8xl">
+          <div className="flex flex-col justify-start w-10/12 px-11 max-w-7xl">
             <div className="flex flex-col items-start">
               <h1 className="md:text-7xl text-3xl font-bold text-black mb-4">
                 규모

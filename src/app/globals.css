@@ -107,3 +107,30 @@ var {
 .Card { 
   transition: flex-grow 0.3s ease;
 }
+
+#main-bg-img {
+  background-image: url("../../public/images/main_study.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  isolation: isolate;
+}
+
+#main-bg-img::after {
+  content: '';
+  position: absolute;
+  background: #000;
+  z-index: -1;
+  inset: 0;
+  opacity: 0.5;
+  border-radius: 16px;
+}
+
+@media (max-width: 768px) {
+  #main-bg-img::after {
+    border-radius: 0px;
+  }
+}
+
+

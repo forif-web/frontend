@@ -25,7 +25,6 @@ import { applySchema } from "@/lib/default_form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TextArea } from "@radix-ui/themes";
 import axios from "axios";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -40,8 +39,6 @@ export default function Apply() {
     "/api/study/name",
     fetcher
   );
-  const { data: session } = useSession();
-
   //FORM SCHEMA
   const form = useForm<z.infer<typeof applySchema>>({
     resolver: zodResolver(applySchema),
@@ -54,22 +51,19 @@ export default function Apply() {
     },
   });
 
-  const [primaryStudySelected, setPrimaryStudySelected] = useState("");
+  const [primaryStudySelected, setPrimaryStudySelected] = useState<
+    string | "정규 스터디 미 선택(이후 자율스터디 입부)"
+  >("");
   const [secondaryStudySelected, setSecondaryStudySelected] = useState("");
   const router = useRouter();
   async function onSubmit(data: z.infer<typeof applySchema>) {
     try {
-      const response = await axios.post("/api/apply", data, {
-        headers: {
-          Authorization: `Bearer ${session?.user.token.id_token}`,
-        },
-      });
+      const response: any = await axios.post("/api/apply", data);
       if (response.data.status !== 200) {
         ToastEmitter({ type: "error", text: response.data.message });
       } else {
-        console.log(response.data);
-
         ToastEmitter({ type: "success", text: "스터디 신청에 성공했습니다." });
+        router.push("/");
       }
     } catch (err) {
       ToastEmitter({ type: "error", text: "신청 실패!" });
@@ -79,11 +73,20 @@ export default function Apply() {
   //CHECKBOX
   const [term, setTerm] = useState(false);
   const [experienced, setExperienced] = useState(false);
+
   useEffect(() => {
     if (experienced) {
       form.setValue("career", "없음");
     }
     if (secondaryStudySelected === "미참여") {
+      form.setValue("secondaryIntro", "");
+    }
+    if (primaryStudySelected === "정규 스터디 미 선택(이후 자율스터디 입부)") {
+      form.setValue(
+        "primaryIntro",
+        "해당 옵션은 정규 스터디에 참여하지 않고, 학기 중에 개설되는 자율 스터디에 참가하는 것입니다."
+      );
+      form.setValue("secondaryStudy", "미참여");
       form.setValue("secondaryIntro", "");
     }
   }, [experienced, secondaryStudySelected]);
@@ -174,6 +177,14 @@ export default function Apply() {
             render={({ field: { onChange, ...fieldProps } }) => (
               <FormItem>
                 <FormLabel>1순위 스터디</FormLabel>
+                {primaryStudySelected ===
+                  "정규 스터디 미 선택(이후 자율스터디 입부)" && (
+                  <FormDescription>
+                    해당 옵션은 정규 스터디에 참여하지 않고, 학기 중에 개설되는
+                    자율 스터디에 참가하는 것입니다. 자율 스터디에 대해 더
+                    자세히 알고 싶으시다면 이 링크를 클릭해주세요
+                  </FormDescription>
+                )}
                 <Select
                   onValueChange={(value) => {
                     setPrimaryStudySelected(value);
@@ -191,51 +202,62 @@ export default function Apply() {
               </FormItem>
             )}
           />
-          <FormField
-            name="primaryIntro"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>자기소개</FormLabel>
-                <FormDescription>
-                  스터디(1순위)에 들어오고 싶은 이유
-                </FormDescription>
-                <FormControl>
-                  <TextArea className="rounded-xl focus:ring-ring" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            name="secondaryStudy"
-            control={form.control}
-            render={({ field: { onChange, ...fieldProps } }) => (
-              <FormItem>
-                <FormLabel>2순위 스터디</FormLabel>
-                <FormDescription>
-                  1순위 스터디 선택 이후 선택 가능합니다.
-                </FormDescription>
-                <Select
-                  onValueChange={(value) => {
-                    setSecondaryStudySelected(value);
-                    onChange(value);
-                  }}
-                  disabled={primaryStudySelected === ""}
-                >
+          {primaryStudySelected !==
+            "정규 스터디 미 선택(이후 자율스터디 입부)" && (
+            <FormField
+              name="primaryIntro"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>자기소개</FormLabel>
+                  <FormDescription>
+                    스터디(1순위)에 들어오고 싶은 이유
+                  </FormDescription>
                   <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="스터디를 선택해주세요." />
-                    </SelectTrigger>
+                    <TextArea
+                      className="rounded-xl focus:ring-ring"
+                      {...field}
+                    />
                   </FormControl>
-                  <StudySelector selectType="secondary" />
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
+          {primaryStudySelected !==
+            "정규 스터디 미 선택(이후 자율스터디 입부)" && (
+            <FormField
+              name="secondaryStudy"
+              control={form.control}
+              render={({ field: { onChange, ...fieldProps } }) => (
+                <FormItem>
+                  <FormLabel>2순위 스터디</FormLabel>
+                  <FormDescription>
+                    1순위 스터디 선택 이후 선택 가능합니다.
+                  </FormDescription>
+                  <Select
+                    onValueChange={(value) => {
+                      setSecondaryStudySelected(value);
+                      onChange(value);
+                    }}
+                    disabled={primaryStudySelected === ""}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="스터디를 선택해주세요." />
+                      </SelectTrigger>
+                    </FormControl>
+                    <StudySelector selectType="secondary" />
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
           {secondaryStudySelected !== "미참여" &&
-            secondaryStudySelected !== "" && (
+            secondaryStudySelected !== "" &&
+            primaryStudySelected !==
+              "정규 스터디 미 선택(이후 자율스터디 입부)" && (
               <FormField
                 name="secondaryIntro"
                 control={form.control}
@@ -256,7 +278,6 @@ export default function Apply() {
                 )}
               />
             )}
-
           <FormField
             name="career"
             control={form.control}

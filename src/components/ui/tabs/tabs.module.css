@@ -1,0 +1,16 @@
+.tab_trigger {
+  display: inline-block;
+} 
+
+.tab_trigger::after {
+  content: '';
+  width: 0px;
+  height: 1px;
+  display: block;
+  background: black;
+  transition: 300ms;
+}
+
+.tab_trigger:hover {
+  width: 100%;
+}

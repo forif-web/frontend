@@ -69,13 +69,14 @@ const authOptions = {
             }
           );
           const res: signInResponseType = await data.json();
+
           if ("id" in res) {
             cookies().set("idToken", account.id_token!);
 
             return true;
           } else {
             //요청이 잘못되었거나, 새로 가입한 회원
-            if (res.error === "Unauthorized") {
+            if (res.message === "유저가 없습니다.") {
               //새로 가입한 회원일시
               cookies().set("id_token", account.id_token!);
               return "/auth/signup";

@@ -5,7 +5,6 @@ import { Badge } from "@/components/ui/badge";
 import HoverCard from "@/components/ui/hover-card/hover-card";
 import { Card, Strong, Table, Text } from "@radix-ui/themes";
 import axios from "axios";
-import { motion } from "framer-motion";
 import Image from "next/image";
 import { FaCheck } from "react-icons/fa6";
 import useSWR from "swr";
@@ -66,33 +65,6 @@ function Page({ params }: { params: { sid: string } }) {
       </div>
     );
 
-  function renderLevel() {
-    let level: any = [];
-    let location = 0;
-    if (data?.level) {
-      for (let i = 0; i < data.level; i++) {
-        level.push(
-          <motion.circle
-            cx={location}
-            cy={"15"}
-            r={"10"}
-            stroke="#ffffff"
-            variants={draw}
-            custom={i}
-            style={{
-              strokeWidth: "10px",
-              strokeLinecap: "round",
-              fill: "transparent",
-            }}
-          />
-        );
-        location += 40;
-      }
-    } else {
-      level.push(<span>오류</span>);
-    }
-    return level;
-  }
   function renderDifficulty() {
     if (data?.level) {
       switch (data.level) {
@@ -111,13 +83,19 @@ function Page({ params }: { params: { sid: string } }) {
         case 3:
           return (
             <Text size={"7"}>
-              <Strong>초급자</Strong>를 위해 준비한
+              <Strong>중급자</Strong>를 위해 준비한
+            </Text>
+          );
+        case 4:
+          return (
+            <Text size={"7"}>
+              <Strong>숙련자</Strong>를 위해 준비한
             </Text>
           );
         default:
           return (
             <Text size={"7"}>
-              <Strong>중급자</Strong>를 위해 준비한
+              <Strong>숙련자</Strong>를 위해 준비한
             </Text>
           );
       }
@@ -154,25 +132,6 @@ function Page({ params }: { params: { sid: string } }) {
                 {data.interview && (
                   <Badge className="bg-red-500 hover:bg-red-400">면접</Badge>
                 )}
-              </div>
-              <div className="flex flex-row items-center justify-between">
-                <motion.svg
-                  width="120"
-                  height="31"
-                  viewBox="0 0 70 31"
-                  initial="hidden"
-                  animate="visible"
-                  style={{
-                    strokeWidth: "10px",
-                    strokeLinecap: "round",
-                    fill: "transparent",
-                    display: "flex",
-                    justifyContent: "end",
-                    alignItems: "center",
-                  }}
-                >
-                  {renderLevel()}
-                </motion.svg>
               </div>
             </div>
             <h1 className="text-3xl font-bold md:text-white text-center md:text-left">

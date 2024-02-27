@@ -50,7 +50,7 @@ export default function HomePage() {
                 </div>
               </div>
               <div>
-                <p className="text-2xl">2024.02.26 - 2024.03.06</p>
+                <p className="text-2xl">2024.02.26 - 2024.03.05</p>
               </div>
               <div className="md:hidden flex flex-row items-center gap-4">
                 <h1>지원하기</h1>

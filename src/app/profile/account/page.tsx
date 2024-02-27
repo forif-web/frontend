@@ -47,22 +47,28 @@ export default function AccountPage() {
           </Flex>
         </div>
         <div className="flex flex-col">
-          <Text size={"3"} weight={"bold"}>
+          <Text size={"2"} weight={"bold"}>
             부원명
           </Text>
-          <Text size={"6"}>{data.userName}</Text>
+          <Text size={"6"} weight={"light"}>
+            {data.userName}
+          </Text>
         </div>
         <div className="flex flex-col">
-          <Text size={"3"} weight={"bold"}>
+          <Text size={"2"} weight={"bold"}>
             소속 학과
           </Text>
-          <Text size={"6"}>{data.department}</Text>
+          <Text size={"6"} weight={"light"}>
+            {data.department}
+          </Text>
         </div>
         <div className="flex flex-col">
-          <Text size={"3"} weight={"bold"}>
+          <Text size={"2"} weight={"bold"}>
             이메일
           </Text>
-          <Text size={"6"}>{data.email}</Text>
+          <Text size={"6"} weight={"light"}>
+            {data.email}
+          </Text>
         </div>
         <Button variant={"destructive"} onClick={() => signOut()}>
           로그아웃

@@ -1,13 +1,13 @@
 "use client";
 
-import { applyDataType } from "@/app/types/application";
+import { ApplicationType } from "@/app/types/application";
 import SpinningCircle from "@/components/common/skeleton/spinning-circle";
 import axios from "axios";
 import useSWR from "swr";
 
 export default function ApplicationPage() {
   const fetcher = (url: string) => axios.get(url).then((res) => res.data);
-  const { data, error, isLoading } = useSWR<applyDataType>(
+  const { data, error, isLoading } = useSWR<ApplicationType>(
     "/api/apply/user",
     fetcher
   );

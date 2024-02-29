@@ -10,6 +10,20 @@ async function ApplyPageLayout({ children }: { children: React.ReactNode }) {
         <h1 className="text-[44px] font-bold flex space-y-4 w-10/12 max-w-xl">
           스터디 신청하기
         </h1>
+        <Text
+          size={"3"}
+          color="tomato"
+          className="mb-5 flex space-y-4 w-10/12 max-w-xl"
+        >
+          폼 작성 후 입금까지 완료해야 신청 절차가 모두 완료됩니다. 입금 확인은
+          프로필에서 확인가능합니다.
+        </Text>
+        <Text size={"3"} className="flex space-y-4 w-10/12 max-w-xl">
+          79799136981 카카오뱅크
+        </Text>
+        <Text size={"3"} className="mb-5 flex space-y-4 w-10/12 max-w-xl">
+          (정규 스터디 : 35000원 / 자율 스터디 : 30000원)
+        </Text>
         <Text size={"3"} color="gray" className="mb-5">
           한 학기에 정규 스터디 하나만 수강가능합니다.(자율 스터디는 포함되지
           않습니다.)

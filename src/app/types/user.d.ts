@@ -18,5 +18,7 @@ export type userResponseType = {
   passedStudyId: number[];
   phoneNumber: string;
   userId: number;
+  myStudy: number;
   userName: string;
+  userAuthorization: "회원" | "멘토" | "운영진" | "관리자";
 };

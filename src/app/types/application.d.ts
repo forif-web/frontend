@@ -1,12 +1,20 @@
 export type applyDataType = {
-  applyId: number;
-  applierId: number;
+  id: number;
+  name: string;
+  career: string | "없음";
+  intro: string;
+  isPaid: boolean;
+};
+
+export type ApplicationType = {
   primaryStudy: string;
   primaryIntro: string;
-  secondaryStudy: string | "미참여";
+  secondaryStudy: string;
   secondaryIntro: string;
-  career: string | "없음";
-  isPaid: boolean;
-  primaryStatus: string;
-  secondaryStatus: string;
+  career: string;
+};
+
+export type mentorApplyType = {
+  first: applyDataType[];
+  second: applyDataType[];
 };

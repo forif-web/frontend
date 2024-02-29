@@ -1,9 +1,11 @@
 "use client";
 import * as Tabs from "@radix-ui/react-tabs";
 import { Text } from "@radix-ui/themes";
+import axios from "axios";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import useSWR from "swr";
 
 const tabs = [
   {
@@ -18,9 +20,16 @@ const tabs = [
     name: "Account",
     to: "/profile/account",
   },
+  {
+    name: "Management",
+    to: "/profile/management",
+  },
 ];
 
 function ProfilePageLayout({ children }: { children: React.ReactNode }) {
+  const fetcher = (url: string) => axios.get(url, {}).then((res) => res.data);
+  const { data, error, isLoading } = useSWR("/api/auth/getuser", fetcher);
+
   const pathname = usePathname();
   return (
     <div className="mb-8 min-h-full h-fit">
@@ -38,7 +47,10 @@ function ProfilePageLayout({ children }: { children: React.ReactNode }) {
                 <h1 className="text-5xl font-bold text-white text-center md:text-left">
                   Profile
                 </h1>
-                <Tabs.List aria-label="tabs" className="flex flex-row gap-5">
+                <Tabs.List
+                  aria-label="tabs"
+                  className="flex flex-row md:gap-5 gap-3"
+                >
                   {tabs.map((tab) => (
                     <Link
                       href={tab.to}

@@ -4,6 +4,7 @@ const withAuthList = [
   "/profile/course",
   "/profile/application",
   "/profile/account",
+  "/profile/management",
   "/studies/:path*",
   "/studies",
   "/apply",

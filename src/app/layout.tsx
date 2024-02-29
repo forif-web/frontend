@@ -5,6 +5,7 @@ import MyToastContainer from "@/components/ui/toast";
 import { cn } from "@/lib/utils";
 import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import "pretendard/dist/web/static/pretendard.css";
@@ -34,6 +35,7 @@ export default async function RootLayout({
               position="bottom-left"
               theme="dark"
             />
+            <Analytics />
           </SessionProvider>
         </Theme>
       </body>

@@ -37,7 +37,7 @@ export default function ProcessCards() {
           step={2}
           title="스터디 선택 및 지원"
           description="스터디 목록과 계획서를 참고하여 수강을 희망하는 스터디를 선택하고, 지원서를 작성해주세요!"
-          reference="* 스터디 신청 일자 : 2024-02-26 ~ 2024-03-05"
+          reference="* 스터디 신청 일자 : 2024-02-26 ~ 2024-03-06"
           selected={selectedCard.card2}
         />
       </button>

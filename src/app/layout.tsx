@@ -25,7 +25,7 @@ export default async function RootLayout({
         <title>FORIF</title>
       </head>
       <body className={cn("h-full scrollbar-none", Pretendard.className)}>
-        <Theme accentColor="indigo" className="h-full">
+        <Theme accentColor="cyan" className="h-full">
           <SessionProvider session={session}>
             <NavigationBar />
             {children}

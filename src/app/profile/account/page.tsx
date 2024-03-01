@@ -14,6 +14,7 @@ export default function AccountPage() {
     "/api/auth/getuser",
     fetcher
   );
+
   const router = useRouter();
   if (isLoading) {
     return (
@@ -41,9 +42,21 @@ export default function AccountPage() {
               alt="PROFILE IMAGE"
               className="rounded-full mr-5"
             />
-            <div>
-              <Button size={"lg"}>변경</Button>
-            </div>
+            <form>
+              <label htmlFor="profile_image">
+                <Button type="button" size={"lg"}>
+                  변경
+                </Button>
+              </label>
+
+              <input
+                type="file"
+                id="profile_image"
+                name="profile_image"
+                className="hidden"
+                accept=".jpg, .jpeg, .png"
+              />
+            </form>
           </Flex>
         </div>
         <div className="flex flex-col">

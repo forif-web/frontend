@@ -22,7 +22,7 @@ export default function ApplicationPage() {
     <div className="flex flex-col gap-7">
       <div>
         <h1 className="text-5xl font-bold mb-1">제출한 지원서</h1>
-        <p>제출 일자 : 2024-02-26</p>
+        <p>제출 일자 : 2024-00-00</p>
       </div>
       <div>
         <h1 className="">1순위 스터디</h1>

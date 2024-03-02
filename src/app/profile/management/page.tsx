@@ -54,6 +54,12 @@ const payColumns: GridColDef[] = [
     flex: 1,
   },
   {
+    field: "name",
+    headerName: "이름",
+    sortable: false,
+    flex: 1,
+  },
+  {
     field: "phoneNumber",
     headerName: "전화번호",
     sortable: false,
@@ -73,6 +79,7 @@ export default function ManagementPage() {
     second: [],
   });
   const [isPaid, setIsPaid] = useState<any[]>([]);
+  console.log(isPaid);
 
   useEffect(() => {
     async function fetcher() {

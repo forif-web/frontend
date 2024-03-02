@@ -12,6 +12,11 @@ const nextConfig = {
         destination: "/profile/course",
         permanent: true,
       },
+      {
+        source: "/profile/management",
+        destination: "/profile/management/mentor",
+        permanent: true,
+      },
     ];
   },
   images: {

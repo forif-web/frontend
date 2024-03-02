@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 import useSWR from "swr";
+import { userResponseType } from "../types/user";
 
 const tabs = [
   {
@@ -28,7 +29,10 @@ const tabs = [
 
 function ProfilePageLayout({ children }: { children: React.ReactNode }) {
   const fetcher = (url: string) => axios.get(url, {}).then((res) => res.data);
-  const { data, error, isLoading } = useSWR("/api/auth/getuser", fetcher);
+  const { data, error, isLoading } = useSWR<userResponseType>(
+    "/api/auth/getuser",
+    fetcher
+  );
 
   const pathname = usePathname();
   return (
@@ -51,18 +55,53 @@ function ProfilePageLayout({ children }: { children: React.ReactNode }) {
                   aria-label="tabs"
                   className="flex flex-row md:gap-5 gap-3"
                 >
-                  {tabs.map((tab) => (
-                    <Link
-                      href={tab.to}
-                      className={`${
-                        pathname === tab.to && "underline"
-                      } underline-offset-8 decoration-4`}
-                      key={tab.name}
-                    >
-                      <Text size={"4"}>{tab.name}</Text>
-                    </Link>
-                  ))}
+                  {tabs.map((tab) => {
+                    if (
+                      data?.userAuthorization === "회원" &&
+                      tab.name === "Management"
+                    ) {
+                      return null; // 조건에 맞는 탭은 렌더링하지 않음
+                    }
+
+                    // 그 외의 경우, 탭 렌더링
+                    return (
+                      <Link
+                        href={tab.to}
+                        className={`${
+                          pathname === tab.to ? "underline" : ""
+                        } underline-offset-8 decoration-4`}
+                        key={tab.name}
+                      >
+                        <Text size={"4"}>{tab.name}</Text>
+                      </Link>
+                    );
+                  })}
                 </Tabs.List>
+                {pathname.startsWith("/profile/management") && (
+                  <Tabs.List
+                    aria-label="sub-tabs"
+                    className="flex flex-row md:gap-5 gap-3"
+                  >
+                    <Link
+                      href={"/profile/management/mentor"}
+                      className={`${
+                        pathname === "/profile/management/mentor" && "underline"
+                      } underline-offset-8 decoration-4`}
+                      key={"mentor-management"}
+                    >
+                      <Text size={"3"}>Mentor</Text>
+                    </Link>
+                    <Link
+                      href={"/profile/management/admin"}
+                      className={`${
+                        pathname === "/profile/management/admin" && "underline"
+                      } underline-offset-8 decoration-4`}
+                      key={"admin-management"}
+                    >
+                      <Text size={"3"}>Admin</Text>
+                    </Link>
+                  </Tabs.List>
+                )}
               </div>
             </div>
           </section>

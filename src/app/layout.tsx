@@ -51,17 +51,13 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "FORIF",
-    description: "FORIF Integration Management Website",
+    description: "지식의 선순환에 동참하세요.",
     url: url,
     siteName: "FORIF",
     images: [
       {
-        url: "https://imgur.com/RCuyB05.png",
+        url: "https://res.cloudinary.com/dheikvmxu/image/upload/v1709481103/logo_1_st8m2v.png",
         alt: "포리프 블랙 로고",
-      },
-      {
-        url: "https://i.imgur.com/bLWTCII.png",
-        alt: "글자 있는 포리프 로고",
       },
     ],
     locale: "ko_KR",

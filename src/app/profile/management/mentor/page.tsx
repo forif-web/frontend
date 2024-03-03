@@ -112,6 +112,27 @@ export default function ManagementPage() {
     );
   }
 
+  if (data?.userAuthorization === "운영진" && !applications) {
+    return (
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <Text size={"6"} weight={"bold"}>
+          현재 운영 중인 스터디가 존재하지 않습니다.
+        </Text>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <Text size={"6"} weight={"bold"}>
+          오류가 발생했습니다. 현재 운영 중인 스터디가 존재하지 않거나, 권한이
+          없습니다.
+        </Text>
+      </div>
+    );
+  }
+
   function ApplicationGrid({ priority }: { priority: number }) {
     const [rows, setRows] = useState<applyDataType[]>([]);
     useEffect(() => {

@@ -21,7 +21,8 @@ const payColumns: GridColDef[] = [
     field: "userId",
     headerName: "학번",
     sortable: false,
-    flex: 1,
+    maxWidth: 550,
+    flex: 2,
   },
   {
     field: "name",
@@ -33,7 +34,7 @@ const payColumns: GridColDef[] = [
     field: "phoneNumber",
     headerName: "전화번호",
     sortable: false,
-    width: 500,
+    flex: 1,
   },
 ];
 

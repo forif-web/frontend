@@ -11,7 +11,6 @@ export default function CoursePage() {
     "/api/auth/getuser",
     fetcher
   );
-  console.log(data);
 
   if (isLoading) {
     return (

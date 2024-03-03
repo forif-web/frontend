@@ -33,9 +33,8 @@ export function NavigationBar() {
     >
       <nav className="flex items-center md:justify-between justify-end m-auto w-full h-[60px] md:px-8 px-4 max-w-[1240px] relative">
         <ul className="flex items-center space-x-6 max-md:hidden">
-          {pathname === "/" && <NavTab href="#about_us">About us</NavTab>}
-          {pathname === "/" && <NavTab href="#howitworks">Process</NavTab>}
-          {pathname === "/" && <NavTab href="#projects">Projects</NavTab>}
+          {pathname === "/" && <NavTab href="#how_it_works">진행 과정</NavTab>}
+          {pathname === "/" && <NavTab href="#projects">해커톤</NavTab>}
         </ul>
         <Link href="/" className="absolute left-1/2 -translate-x-1/2">
           <div className="flex items-center">
@@ -53,11 +52,11 @@ export function NavigationBar() {
             pathname === "/apply" ? "hidden" : "md:flex"
           }`}
         >
-          {data && data.userId && <NavTab href="/profile">PROFILE</NavTab>}
-          {data && data.userId && <NavTab href="/studies">STUDIES</NavTab>}
-          <button className="rounded-3xl px-6 py-2 h-12 text-base bg-gray-900 text-white">
+          {data && data.userId && <NavTab href="/profile">프로필</NavTab>}
+          {data && data.userId && <NavTab href="/studies">스터디 목록</NavTab>}
+          <Button variant={"apply_black"} size={"apply"}>
             <Link href={`/apply`}>지원하기</Link>
-          </button>
+          </Button>
         </div>
 
         {/* dropdown menu */}

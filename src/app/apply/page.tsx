@@ -25,6 +25,7 @@ import { applySchema } from "@/lib/default_form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TextArea } from "@radix-ui/themes";
 import axios from "axios";
+import "moment/locale/ko";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -39,6 +40,7 @@ export default function Apply() {
     "/api/study/name",
     fetcher
   );
+
   //FORM SCHEMA
   const form = useForm<z.infer<typeof applySchema>>({
     resolver: zodResolver(applySchema),

@@ -101,7 +101,6 @@ function Page({ params }: { params: { sid: string } }) {
       }
     }
   }
-  console.log(data.image);
 
   return (
     <>
@@ -177,9 +176,9 @@ function Page({ params }: { params: { sid: string } }) {
                 {data.tags &&
                   Object.keys(data.tags).map((val, idx, arr) => {
                     if (idx + 1 === arr.length) {
-                      return <span>{val.toUpperCase()}</span>;
+                      return <span key={idx}>{val.toUpperCase()}</span>;
                     } else {
-                      return <span>{val.toUpperCase()},</span>;
+                      return <span key={idx}>{val.toUpperCase()},</span>;
                     }
                   })}
                 ] 강의입니다.
@@ -270,7 +269,7 @@ function Page({ params }: { params: { sid: string } }) {
               </Table.Header>
               {data.weeklyPlans.map((val, idx) => (
                 <Table.Body>
-                  <Table.Row>
+                  <Table.Row key={idx}>
                     <Table.RowHeaderCell className="max-w-max">
                       {idx + 1}주차
                     </Table.RowHeaderCell>

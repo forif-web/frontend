@@ -123,6 +123,9 @@ export default function ManagementPage() {
 
     return (
       <>
+        <Text size={"3"} weight={"bold"}>
+          미입금 부원 수 : {isPaid.length}
+        </Text>
         <DataGrid
           apiRef={apiRef}
           rows={isPaid}
@@ -134,7 +137,7 @@ export default function ManagementPage() {
           slots={{ toolbar: GridToolbar, noRowsOverlay: NoRowsOverlay }}
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 5 },
+              paginationModel: { page: 0, pageSize: 10 },
             },
           }}
           pageSizeOptions={[5, 10]}

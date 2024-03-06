@@ -3,7 +3,7 @@ export type applyDataType = {
   name: string;
   career: string | "없음";
   intro: string;
-  isPaid: boolean;
+  phoneNumber: string;
 };
 
 export type ApplicationType = {

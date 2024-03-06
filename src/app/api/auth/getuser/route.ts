@@ -15,7 +15,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
     });
 
     const data: userResponseType = await response.json();
-
     return NextResponse.json(data);
   } else {
     return NextResponse.json({

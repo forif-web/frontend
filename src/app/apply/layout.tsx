@@ -1,7 +1,21 @@
 import { Text } from "@radix-ui/themes";
+import moment from "moment";
+import "moment/locale/ko";
 import React from "react";
+import { duration } from "../constant/duration";
 
 async function ApplyPageLayout({ children }: { children: React.ReactNode }) {
+  const nowTime = moment().format("YYYY-MM-DD");
+  const isApplyDate = duration.some((val) => val === nowTime);
+  if (!isApplyDate) {
+    return (
+      <div className="flex flex-col gap-5 items-center justify-center w-full h-full">
+        <Text size={"8"} weight={"bold"}>
+          현재 신청 기간이 아닙니다.
+        </Text>
+      </div>
+    );
+  }
   return (
     <div className="mb-8 min-h-full h-fit">
       <div className="h-52" />

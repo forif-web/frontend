@@ -32,8 +32,8 @@ const columns: GridColDef[] = [
     flex: 1,
   },
   {
-    field: "isPaid",
-    headerName: "입금 여부",
+    field: "phoneNumber",
+    headerName: "전화번호",
     flex: 1,
   },
   {
@@ -79,19 +79,19 @@ export default function ManagementPage() {
     name: "FORIF",
     intro: "2024-1 FORIF",
     career: "없음",
-    isPaid: false,
+    phoneNumber: "",
   });
   const [open, setOpen] = useState(false);
 
   const handleRowClick: GridEventListener<"rowClick"> = (params) => {
-    setOpen(true);
     setContent({
       id: params.row.id,
       name: params.row.name,
       intro: params.row.intro,
       career: params.row.career,
-      isPaid: params.row.isPaid,
+      phoneNumber: params.row.phoneNumber,
     });
+    setOpen(true);
   };
 
   if (isLoading && !applications) {
@@ -159,25 +159,31 @@ export default function ManagementPage() {
         removeUsersById(selectedIDs);
         ToastEmitter({
           type: "success",
-          text: "입금 여부 변경에 성공했습니다!",
+          text: "부원 승낙 요청에 성공했습니다!",
         });
       } else {
         ToastEmitter({
           type: "error",
-          text: "입금 여부 변경에 실패했습니다!",
+          text: "부원 승낙 요청에 실패했습니다!",
         });
       }
     }
 
     return (
       <>
+        <Text size={"3"} weight={"bold"}>
+          신청 인원 :{" "}
+          {priority === 1
+            ? applications.first.length
+            : applications.second.length}
+        </Text>
         <DataGrid
           apiRef={apiRef}
           rows={rows}
           columns={columns}
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 5 },
+              paginationModel: { page: 0, pageSize: 10 },
             },
           }}
           slots={{ noRowsOverlay: NoRowsOverlay }}
@@ -208,8 +214,8 @@ export default function ManagementPage() {
           <Text size={"5"}>1순위 스터디</Text>
           <Text size={"3"} color="gray" className="mb-3 whitespace-normal">
             멘토님의 스터디를 2순위로 신청한 부원 명단입니다. 반드시 해당
-            부원들을 2순위 부원들보다 먼저 선발해주세요. 아직 개발 미흡으로 각
-            글에 커서를 올려놔야지만 전체 글이 보입니다. 양해 부탁드립니다.
+            부원들을 2순위 부원들보다 먼저 선발해주세요. 운영진들이 직접 합격
+            문자를 보내야하므로 빠른 시일 내에 승낙 절차를 완료해주세요!
           </Text>
           <div className="w-full">
             <ApplicationGrid priority={1} />
@@ -219,8 +225,8 @@ export default function ManagementPage() {
           <Text size={"5"}>2순위 스터디</Text>
           <Text size={"3"} color="gray" className="mb-3 whitespace-normal">
             멘토님의 스터디를 2순위로 신청한 부원 명단입니다. 1순위로 신청한
-            부원 승낙 이후 여유 인원이 남을 시 승낙해주세요.아직 개발 미흡으로
-            각 글에 커서를 올려놔야지만 전체 글이 보입니다. 양해 부탁드립니다.
+            부원 승낙 이후 여유 인원이 남을 시 승낙해주세요. 운영진들이 직접
+            합격 문자를 보내야하므로 빠른 시일 내에 승낙 절차를 완료해주세요!
           </Text>
           <div className="w-full">
             <ApplicationGrid priority={2} />
@@ -235,9 +241,6 @@ export default function ManagementPage() {
               <div className="flex flex-col gap-7">
                 <div className="flex justify-between items-center mb-1">
                   <h1 className="text-3xl font-bold">제출한 지원서</h1>
-                  <p className="text-base">
-                    입금 여부 : {content.isPaid ? "O" : "X"}
-                  </p>
                 </div>
                 <div>
                   <h1 className="">학번</h1>
@@ -249,6 +252,12 @@ export default function ManagementPage() {
                   <h1 className="">이름</h1>
                   <p className="flex h-fit max-w-xl min-h-[40px] rounded-lg border border-input bg-background px-3 py-2 break-all">
                     {content.name}
+                  </p>
+                </div>
+                <div>
+                  <h1 className="">전화번호</h1>
+                  <p className="flex h-fit max-w-xl min-h-[40px] rounded-lg border border-input bg-background px-3 py-2 break-all">
+                    {content.phoneNumber}
                   </p>
                 </div>
                 <div>

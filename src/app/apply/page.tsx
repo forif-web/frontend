@@ -1,29 +1,15 @@
 "use client";
 import SpinningCircle from "@/components/common/skeleton/spinning-circle";
-import { Button } from "@/components/ui/button";
-import { CheckBox } from "@/components/ui/checkbox";
 import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import {
-  Select,
   SelectContent,
   SelectGroup,
   SelectItem,
   SelectLabel,
-  SelectTrigger,
-  SelectValue,
 } from "@/components/ui/select";
 import ToastEmitter from "@/hooks/toastEmitter";
 import { applySchema } from "@/lib/default_form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { TextArea } from "@radix-ui/themes";
+import { Text } from "@radix-ui/themes";
 import axios from "axios";
 import "moment/locale/ko";
 import { useRouter } from "next/navigation";
@@ -168,7 +154,10 @@ export default function Apply() {
 
   return (
     <>
-      <Form {...form}>
+      <Text size={"8"} weight={"bold"}>
+        현재 신청 기간이 아닙니다.
+      </Text>
+      {/* <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-4 w-10/12 max-w-xl"
@@ -324,7 +313,7 @@ export default function Apply() {
             제출하기
           </Button>
         </form>
-      </Form>
+      </Form> */}
     </>
   );
 }

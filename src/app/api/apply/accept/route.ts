@@ -15,6 +15,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         "Content-Type": "application/json",
         "Cache-Control": "no-store",
       },
+      cache: "no-store",
       body: JSON.stringify(payload),
     });
     const data = await response.json();

@@ -36,6 +36,7 @@ export async function PATCH(req: NextRequest, res: NextResponse) {
         Authorization: `Bearer ${session?.user.token.id_token}`,
         "Content-Type": "application/json",
       },
+      cache: "no-store",
       body: JSON.stringify(payload),
     });
 

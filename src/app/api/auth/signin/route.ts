@@ -2,6 +2,7 @@ import getToken from "@/hooks/api/getToken";
 import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest, res: NextResponse) {
   const URL = `${process.env.API_BASEURL}:${process.env.API_BASEPORT}`;
+
   const idToken = await getToken({ req });
   if (idToken) {
     const response: Response = await fetch(`${URL}/signin`, {

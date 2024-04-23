@@ -3,6 +3,7 @@ import { NavigationBar } from "@/components/navigation-bar";
 import SessionProvider from "@/components/sessionProvider";
 import MyToastContainer from "@/components/ui/toast";
 import { cn } from "@/lib/utils";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import { Analytics } from "@vercel/analytics/react";
@@ -11,12 +12,7 @@ import { getServerSession } from "next-auth";
 import "pretendard/dist/web/static/pretendard.css";
 import { Pretendard } from "./fonts/fonts";
 import "./globals.css";
-
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+async function RootLayout({ children }: { children: React.ReactNode }) {
   const session = await getServerSession();
 
   return (
@@ -35,13 +31,16 @@ export default async function RootLayout({
               position="bottom-left"
               theme="dark"
             />
-            <Analytics />
           </SessionProvider>
         </Theme>
+        <GoogleAnalytics gaId="G-V03BMRQVEJ" />
+        <Analytics />
       </body>
     </html>
   );
 }
+
+export default RootLayout;
 
 const url = "https://forif.org";
 export const metadata: Metadata = {

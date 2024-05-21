@@ -29,6 +29,7 @@ export async function middleware(req: NextRequest) {
   // 서버사이드에서 로그인 유무를 판단할 수 있는 next-auth 제공 함수
   // 토큰 값이 falsy 하지 않으면 로그인 o
   const idToken = await getToken({ req });
+  
   // 사용자가 요청하는 페이지 pathname
   const { pathname } = req.nextUrl;
   // 해당 pathname이 미리 정의해둔 withAuth, withOutAuth 배열 중 어디에 속하는지 확인

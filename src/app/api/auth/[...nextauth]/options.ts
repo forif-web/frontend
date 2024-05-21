@@ -63,33 +63,41 @@ const authOptions = {
     async signIn({ user, account, profile }) {
       if (profile && user && account) {
         if (profile.email?.endsWith("hanyang.ac.kr")) {
-          const data = await fetch(
-            `${process.env.NEXTAUTH_URL}/api/auth/signin`,
-            {
-              method: "POST",
-              headers: {
-                Authorization: `Bearer ${account.id_token}`,
-              },
-              cache: "no-cache",
-            }
-          );
-          const res: signInResponseType = await data.json();
+          try {
+            const data = await fetch(
+              `${process.env.NEXTAUTH_URL}/api/auth/signin`,
+              {
+                method: "POST",
+                headers: {
+                  Authorization: `Bearer ${account.id_token}`,
+                },
+                cache: "no-cache",
+              }
+            );
+            
+            const res: signInResponseType = await data.json();
 
-          if ("id" in res) {
-            cookies().set("idToken", account.id_token!);
-
-            return true;
-          } else {
-            //요청이 잘못되었거나, 새로 가입한 회원
-            if (res.message === "유저가 없습니다.") {
-              //새로 가입한 회원일시
-              cookies().set("id_token", account.id_token!);
-              return "/auth/signup";
+            if ("id" in res) {
+              cookies().set("idToken", account.id_token!);
+  
+              return true;
             } else {
-              //요청이 잘못되었을시
-              return "/auth/error?error=InvalidServerResponse";
+              //요청이 잘못되었거나, 새로 가입한 회원
+              if (res.message === "유저가 없습니다.") {
+                //새로 가입한 회원일시
+                cookies().set("id_token", account.id_token!);
+                return "/auth/signup";
+              } else {
+                //요청이 잘못되었을시
+                return "/auth/error?error=InvalidServerResponse";
+              }
             }
+          } catch(err) {
+            console.error(err);
           }
+          
+
+          
         } else {
           return "/auth/error?error=InvalidEmailAccount";
         }
@@ -111,3 +119,4 @@ export function auth(
   return getServerSession(...args, authOptions);
 }
 export { authOptions };
+

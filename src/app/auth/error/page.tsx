@@ -19,6 +19,7 @@ export default function Page({
         setTitle("서버와의 연결이 불안정합니다.");
         break;
       default:
+        console.error(errorMessage)
         setTitle("알 수 없는 오류입니다.");
     }
   }, [errorMessage]);
